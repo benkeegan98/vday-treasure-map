@@ -9,7 +9,8 @@ interface MapStateContextType {
   resetGame: () => void
   // Modal state
   activeModalLocation: Location | null
-  openModal: (location: Location) => void
+  isNewUnlock: boolean
+  openModal: (location: Location, isNew?: boolean) => void
   closeModal: () => void
   // Clue overlay state
   isClueOverlayOpen: boolean
@@ -28,6 +29,7 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [unlockedLocations, setUnlockedLocations] = useState<number[]>([])
   const [activeModalLocation, setActiveModalLocation] = useState<Location | null>(null)
+  const [isNewUnlock, setIsNewUnlock] = useState(false)
   const [isClueOverlayOpen, setIsClueOverlayOpen] = useState(false)
 
   const unlockLocation = (locationId: number) => {
@@ -45,15 +47,18 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
     setCurrentStep(1)
     setUnlockedLocations([])
     setActiveModalLocation(null)
+    setIsNewUnlock(false)
     setIsClueOverlayOpen(false)
   }
 
-  const openModal = (location: Location) => {
+  const openModal = (location: Location, isNew: boolean = false) => {
     setActiveModalLocation(location)
+    setIsNewUnlock(isNew)
   }
 
   const closeModal = () => {
     setActiveModalLocation(null)
+    setIsNewUnlock(false)
   }
 
   const setClueOverlayOpen = (open: boolean) => {
@@ -73,6 +78,7 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
         isLocationUnlocked,
         resetGame,
         activeModalLocation,
+        isNewUnlock,
         openModal,
         closeModal,
         isClueOverlayOpen,

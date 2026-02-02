@@ -8,7 +8,7 @@ import { ClueOverlay } from '../ClueOverlay/ClueOverlay'
 import { LocationModal } from '../LocationModal/LocationModal'
 import { useMapState } from '../../context/MapStateContext'
 import { locationData } from '../../locations/locationData'
-import { getDistanceInMeters, DEFAULT_VICINITY_RADIUS_METRES } from '../../utils/distance'
+import { getDistanceInMeters } from '../../utils/distance'
 
 export const MapScreen = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null)
@@ -62,7 +62,6 @@ export const MapScreen = () => {
         style: import.meta.env.VITE_MAPBOX_STYLE_URL,
         center: [-117.249924, 32.747252],
         zoom: 13,
-        maxZoom: 15,
       })
 
       map.addControl(new mapboxgl.NavigationControl(), 'top-left')
@@ -85,7 +84,7 @@ export const MapScreen = () => {
         if (distance <= targetLocation.acceptableDistanceMetres) {
           unlockLocation(targetLocation.id)
           addMarkerToMap(targetLocation.id)
-          openModal(targetLocation)
+          openModal(targetLocation, true) // true = fresh unlock
         }
       })
 
