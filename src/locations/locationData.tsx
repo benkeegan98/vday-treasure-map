@@ -17,9 +17,9 @@ export const locationData: Location[] = [
     long: -117.130071,
     acceptableDistanceMetres: 200,
     clues: [
-      "Chicken on a roof",
       "Happy Mother's Day!",
-      "Our first date when you showed me the finest dessert ever crafted"
+      "Chicken on a roof",
+      "Our first date when you showed me your taste for the finest desserts"
     ]
   },
   {
@@ -41,8 +41,8 @@ export const locationData: Location[] = [
     long: -117.256092,
     acceptableDistanceMetres: 500,
     clues: [
-      "'No, trust me, you're not gonna get towed'",
-      "Marriage proposal interruption",
+      "'No, trust me, I promise, you're not gonna get towed'",
+      "When we were rudely interrupted by a marriage proposal",
       "Our third date, cute wine picnic on the cliffs :)"
     ]
   },
@@ -65,7 +65,7 @@ export const locationData: Location[] = [
     long: -117.263757,
     acceptableDistanceMetres: 800,
     clues: [
-      "When we saw some flying fish",
+      "First time seeing a flying fish",
       "Haw old is ur home",
       "Our first hike together up the world's shortest slot canyon"
     ]
@@ -89,7 +89,7 @@ export const locationData: Location[] = [
     long: -117.016338,
     acceptableDistanceMetres: 1000,
     clues: [
-      "First breath underwater",
+      "Our first breath underwater",
     ]
   },
   {
@@ -98,7 +98,11 @@ export const locationData: Location[] = [
     lat: 32.852915, 
     long: -117.261856,
     acceptableDistanceMetres: 1000,
-    clues: []
+    clues: [
+      "Solified my love for Spindrift, in more ways than one",
+      "Where you lost my most precious possession (which you remembered and bought again for my birthday)",
+      "So many firsts together here - snorkeling, kayaking, seeing sharks and turtles and Gary Baldys :)"
+    ]
   },
   {
     id: 9,
@@ -106,22 +110,41 @@ export const locationData: Location[] = [
     lat: 33.349178,
     long: -118.324987,
     acceptableDistanceMetres: 800,
-    clues: []
+    clues: [
+      "Our first scuba trip!"
+    ]
   },
   {
     id: 10,
+    name: 'Joshua Tree',
+    lat: 34.024931,
+    long: -116.141452,
+    acceptableDistanceMetres: 2000,
+    clues: [
+      "When you first showed me your favorite yoga pose",
+      "When we froze our asses off sleeping in my trunk so we could cuddle instead of using our own sleeping bags",
+      "Our first time outdoor climbing together"
+    ]
+  },
+  {
+    id: 11,
     name: 'Hotel Del Coronado',
     lat: 32.680360,
     long: -117.178963,
     acceptableDistanceMetres: 200,
-    clues: []
+    clues: [
+      "First time seeing you on ice"
+    ]
   },
   {
-    id: 11,
+    id: 12,
     name: 'Woods Cove - Laguna Beach',
     lat: 33.526980,
     long: -117.771850,
     acceptableDistanceMetres: 500,
-    clues: []
+    clues: [
+      "First place I ever took a photo of you underwater",
+      "Where I asked you an important question that was probably a lot later than it should have been",
+    ]
   }
 ]
