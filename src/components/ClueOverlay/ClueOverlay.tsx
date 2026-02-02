@@ -5,8 +5,19 @@ import { useMapState } from '../../context/MapStateContext'
 import './ClueOverlay.css'
 
 export const ClueOverlay = () => {
-  const { currentStep, isClueOverlayOpen, setClueOverlayOpen } = useMapState()
+  const { currentStep, isClueOverlayOpen, setClueOverlayOpen, getCurrentTargetLocation } = useMapState()
   const [isOpen, setIsOpen] = useState(false)
+  const [visibleClueCount, setVisibleClueCount] = useState(1)
+
+  // Get current location's clues
+  const targetLocation = getCurrentTargetLocation()
+  const clues = targetLocation?.clues || []
+  const hasMoreClues = visibleClueCount < clues.length
+
+  // Reset visible clue count when step changes
+  useEffect(() => {
+    setVisibleClueCount(1)
+  }, [currentStep])
 
   // Sync with context state (for when modal triggers open)
   useEffect(() => {
@@ -15,6 +26,7 @@ export const ClueOverlay = () => {
       setClueOverlayOpen(false) // Reset the trigger
     }
   }, [isClueOverlayOpen, isOpen, setClueOverlayOpen])
+
   const [isFullyOpened, setIsFullyOpened] = useState(false)
   const [height, setHeight] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -79,6 +91,12 @@ export const ClueOverlay = () => {
     []
   )
 
+  const handleRevealNextClue = () => {
+    if (hasMoreClues) {
+      setVisibleClueCount((prev) => prev + 1)
+    }
+  }
+
   const contentContainerStyle = css`
     transition: max-height 0.25s ease-in-out;
     max-height: ${maxHeight};
@@ -99,7 +117,25 @@ export const ClueOverlay = () => {
         onTransitionEnd={handleTransitionEnd}
       >
         <div ref={contentRef} className="clue-content">
-          <p>This is a clue</p>
+          {clues.length === 0 ? (
+            <p className="clue-text">No clues available yet...</p>
+          ) : (
+            <>
+              {clues.slice(0, visibleClueCount).map((clue, index) => (
+                <p
+                  key={index}
+                  className={`clue-text ${index === visibleClueCount - 1 ? 'clue-fade-in' : ''}`}
+                >
+                  {clue}
+                </p>
+              ))}
+              {hasMoreClues && (
+                <button className="reveal-clue-btn" onClick={handleRevealNextClue}>
+                  Show another clue
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

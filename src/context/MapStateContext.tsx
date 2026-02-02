@@ -36,6 +36,7 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
     if (!unlockedLocations.includes(locationId)) {
       setUnlockedLocations((prev) => [...prev, locationId])
       setCurrentStep((prev) => prev + 1)
+      setClueOverlayOpen(false)
     }
   }
 

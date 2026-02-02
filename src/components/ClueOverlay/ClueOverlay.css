@@ -36,7 +36,46 @@
   border-top: 1px solid #5C4033;
 }
 
-.clue-content p {
-  margin: 0;
+.clue-text {
+  margin: 0 0 12px 0;
   line-height: 1.5;
+  padding-left: 12px;
+  border-left: 2px solid #5C4033;
+}
+
+.clue-text:last-of-type {
+  margin-bottom: 0;
+}
+
+.clue-fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-clue-btn {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background-color: transparent;
+  color: #5C4033;
+  border: 1px solid #5C4033;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.reveal-clue-btn:hover {
+  background-color: #5C4033;
+  color: #E8D4A8;
 }
