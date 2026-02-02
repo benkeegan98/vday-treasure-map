@@ -89,6 +89,7 @@ export const locationData: Location[] = [
     long: -117.016338,
     acceptableDistanceMetres: 1000,
     clues: [
+      "First time encountering Spiderman's most menacing adversary - Doc Oc",
       "Our first breath underwater",
     ]
   },

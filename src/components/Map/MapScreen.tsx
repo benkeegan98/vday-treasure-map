@@ -11,6 +11,7 @@ import { InstructionsModal } from '../InstructionsModal/InstructionsModal'
 import { useMapState } from '../../context/MapStateContext'
 import { locationData } from '../../locations/locationData'
 import { getDistanceInMeters } from '../../utils/distance'
+import { fireHeartsConfetti } from '../../utils/confetti'
 
 export const MapScreen = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null)
@@ -85,6 +86,7 @@ export const MapScreen = () => {
         )
 
         if (distance <= targetLocation.acceptableDistanceMetres) {
+          fireHeartsConfetti()
           unlockLocation(targetLocation.id)
           addMarkerToMap(targetLocation.id)
           openModal(targetLocation, true) // true = fresh unlock
