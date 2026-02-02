@@ -82,7 +82,7 @@ export const MapScreen = () => {
           targetLocation.long
         )
 
-        if (distance <= DEFAULT_VICINITY_RADIUS_METRES) {
+        if (distance <= targetLocation.acceptableDistanceMetres) {
           unlockLocation(targetLocation.id)
           addMarkerToMap(targetLocation.id)
           openModal(targetLocation)
