@@ -1,11 +1,13 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
+import { Info } from 'lucide-react'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import '../../App.css'
 import { ClueOverlay } from '../ClueOverlay/ClueOverlay'
 import { LocationModal } from '../LocationModal/LocationModal'
+import { InstructionsModal } from '../InstructionsModal/InstructionsModal'
 import { useMapState } from '../../context/MapStateContext'
 import { locationData } from '../../locations/locationData'
 import { getDistanceInMeters } from '../../utils/distance'
@@ -14,6 +16,7 @@ export const MapScreen = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const markersRef = useRef<Map<number, mapboxgl.Marker>>(new Map())
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState(true)
 
   const {
     unlockedLocations,
@@ -107,8 +110,19 @@ export const MapScreen = () => {
   return (
     <>
       <div id="map-container" ref={mapContainerRef} />
+      <button
+        className="info-button"
+        onClick={() => setIsInstructionsOpen(true)}
+        aria-label="Open instructions"
+      >
+        <Info size={20} />
+      </button>
       <ClueOverlay />
       <LocationModal />
+      <InstructionsModal
+        isOpen={isInstructionsOpen}
+        onClose={() => setIsInstructionsOpen(false)}
+      />
     </>
   )
 }
