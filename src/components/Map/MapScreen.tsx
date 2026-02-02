@@ -15,9 +15,9 @@ export const MapScreen = () => {
     if (mapContainerRef.current) {
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
-        style: "mapbox://styles/mapbox/dark-v11",
-        center: [-74.0060152, 40.7127281],
-        zoom: 5,
+        style: import.meta.env.VITE_MAPBOX_STYLE_URL,
+        center: [-117.249924, 32.747252],
+        zoom: 13,
         maxZoom: 15,
       });
 
