@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
+import { locationData, Location } from '../locations/locationData'
 
 interface MapStateContextType {
   currentStep: number
@@ -6,6 +7,15 @@ interface MapStateContextType {
   unlockLocation: (locationId: number) => void
   isLocationUnlocked: (locationId: number) => boolean
   resetGame: () => void
+  // Modal state
+  activeModalLocation: Location | null
+  openModal: (location: Location) => void
+  closeModal: () => void
+  // Clue overlay state
+  isClueOverlayOpen: boolean
+  setClueOverlayOpen: (open: boolean) => void
+  // Get current target location
+  getCurrentTargetLocation: () => Location | undefined
 }
 
 const MapStateContext = createContext<MapStateContextType | undefined>(undefined)
@@ -17,6 +27,8 @@ interface MapStateProviderProps {
 export const MapStateProvider = ({ children }: MapStateProviderProps) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [unlockedLocations, setUnlockedLocations] = useState<number[]>([])
+  const [activeModalLocation, setActiveModalLocation] = useState<Location | null>(null)
+  const [isClueOverlayOpen, setIsClueOverlayOpen] = useState(false)
 
   const unlockLocation = (locationId: number) => {
     if (!unlockedLocations.includes(locationId)) {
@@ -32,6 +44,24 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
   const resetGame = () => {
     setCurrentStep(1)
     setUnlockedLocations([])
+    setActiveModalLocation(null)
+    setIsClueOverlayOpen(false)
+  }
+
+  const openModal = (location: Location) => {
+    setActiveModalLocation(location)
+  }
+
+  const closeModal = () => {
+    setActiveModalLocation(null)
+  }
+
+  const setClueOverlayOpen = (open: boolean) => {
+    setIsClueOverlayOpen(open)
+  }
+
+  const getCurrentTargetLocation = (): Location | undefined => {
+    return locationData.find((loc) => loc.id === currentStep)
   }
 
   return (
@@ -42,6 +72,12 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
         unlockLocation,
         isLocationUnlocked,
         resetGame,
+        activeModalLocation,
+        openModal,
+        closeModal,
+        isClueOverlayOpen,
+        setClueOverlayOpen,
+        getCurrentTargetLocation,
       }}
     >
       {children}
@@ -52,7 +88,7 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
 export const useMapState = (): MapStateContextType => {
   const context = useContext(MapStateContext)
   if (context === undefined) {
-    throw new Error('useGame must be used within a GameProvider')
+    throw new Error('useMapState must be used within a MapStateProvider')
   }
   return context
 }

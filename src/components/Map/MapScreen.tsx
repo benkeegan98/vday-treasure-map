@@ -1,41 +1,115 @@
-
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import mapboxgl from 'mapbox-gl'
 
-import 'mapbox-gl/dist/mapbox-gl.css';
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 import '../../App.css'
 import { ClueOverlay } from '../ClueOverlay/ClueOverlay'
+import { LocationModal } from '../LocationModal/LocationModal'
+import { useMapState } from '../../context/MapStateContext'
+import { locationData } from '../../locations/locationData'
+import { getDistanceInMeters, DEFAULT_VICINITY_RADIUS_METRES } from '../../utils/distance'
 
 export const MapScreen = () => {
-  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<mapboxgl.Map | null>(null)
+  const markersRef = useRef<Map<number, mapboxgl.Marker>>(new Map())
 
+  const {
+    unlockedLocations,
+    unlockLocation,
+    openModal,
+    getCurrentTargetLocation,
+  } = useMapState()
+
+  // Use refs to avoid stale closures in map event handlers
+  const stateRef = useRef({ getCurrentTargetLocation, unlockLocation, openModal })
+  stateRef.current = { getCurrentTargetLocation, unlockLocation, openModal }
+
+  // Add a marker to the map for an unlocked location
+  const addMarkerToMap = useCallback((locationId: number) => {
+    if (!mapRef.current || markersRef.current.has(locationId)) return
+
+    const location = locationData.find((loc) => loc.id === locationId)
+    if (!location) return
+
+    // Create custom marker element
+    const el = document.createElement('div')
+    el.className = 'unlocked-marker'
+    el.innerHTML = '📍'
+    el.style.fontSize = '32px'
+    el.style.cursor = 'pointer'
+
+    const marker = new mapboxgl.Marker({ element: el })
+      .setLngLat([location.long, location.lat])
+      .addTo(mapRef.current)
+
+    // Click marker to reopen modal
+    el.addEventListener('click', (e) => {
+      e.stopPropagation()
+      stateRef.current.openModal(location)
+    })
+
+    markersRef.current.set(locationId, marker)
+  }, [])
+
+  // Initialize map
   useEffect(() => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
-    if (mapContainerRef.current) {
+    if (mapContainerRef.current && !mapRef.current) {
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: import.meta.env.VITE_MAPBOX_STYLE_URL,
         center: [-117.249924, 32.747252],
         zoom: 13,
         maxZoom: 15,
-      });
+      })
 
-      // Add zoom controls
-      map.addControl(new mapboxgl.NavigationControl(), "top-left");
+      map.addControl(new mapboxgl.NavigationControl(), 'top-left')
 
-      // Add your custom markers and lines here
+      // Handle map clicks
+      map.on('click', (e) => {
+        const { lng, lat } = e.lngLat
+        const { getCurrentTargetLocation, unlockLocation, openModal } = stateRef.current
 
-      // Clean up on unmount
-      return () => map.remove();
+        const targetLocation = getCurrentTargetLocation()
+        if (!targetLocation) return
+
+        const distance = getDistanceInMeters(
+          lat,
+          lng,
+          targetLocation.lat,
+          targetLocation.long
+        )
+
+        if (distance <= DEFAULT_VICINITY_RADIUS_METRES) {
+          unlockLocation(targetLocation.id)
+          addMarkerToMap(targetLocation.id)
+          openModal(targetLocation)
+        }
+      })
+
+      mapRef.current = map
+
+      return () => {
+        map.remove()
+        mapRef.current = null
+      }
     }
+  }, [addMarkerToMap])
 
-  }, [])
+  // Add markers for already unlocked locations on mount/update
+  useEffect(() => {
+    unlockedLocations.forEach((locId) => {
+      addMarkerToMap(locId)
+    })
+  }, [unlockedLocations, addMarkerToMap])
 
   return (
     <>
-      <div id='map-container' ref={mapContainerRef} />
+      <div id="map-container" ref={mapContainerRef} />
       <ClueOverlay />
+      <LocationModal />
     </>
   )
 }

@@ -5,8 +5,16 @@ import { useMapState } from '../../context/MapStateContext'
 import './ClueOverlay.css'
 
 export const ClueOverlay = () => {
-  const { currentStep } = useMapState()
+  const { currentStep, isClueOverlayOpen, setClueOverlayOpen } = useMapState()
   const [isOpen, setIsOpen] = useState(false)
+
+  // Sync with context state (for when modal triggers open)
+  useEffect(() => {
+    if (isClueOverlayOpen && !isOpen) {
+      setIsOpen(true)
+      setClueOverlayOpen(false) // Reset the trigger
+    }
+  }, [isClueOverlayOpen, isOpen, setClueOverlayOpen])
   const [isFullyOpened, setIsFullyOpened] = useState(false)
   const [height, setHeight] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)

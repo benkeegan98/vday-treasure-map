@@ -1,0 +1,99 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: #E8D4A8;
+  border: 3px solid #5C4033;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #5C4033;
+  padding: 4px;
+}
+
+.modal-close:hover {
+  color: #3D2314;
+}
+
+.modal-title {
+  margin: 0 0 8px 0;
+  color: #3D2314;
+  font-size: 24px;
+  text-align: center;
+}
+
+.modal-location-name {
+  margin: 0 0 20px 0;
+  color: #5C4033;
+  font-size: 20px;
+  text-align: center;
+  font-style: italic;
+}
+
+.modal-section {
+  margin-bottom: 20px;
+}
+
+.modal-section h4 {
+  margin: 0 0 8px 0;
+  color: #3D2314;
+  font-size: 16px;
+  border-bottom: 1px solid #5C4033;
+  padding-bottom: 4px;
+}
+
+.modal-section p {
+  margin: 0;
+  color: #3D2314;
+  line-height: 1.5;
+}
+
+.modal-photos-placeholder {
+  background-color: #D4C4A0;
+  border: 1px dashed #5C4033;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  color: #5C4033;
+}
+
+.modal-next-clue-btn {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #5C4033;
+  color: #E8D4A8;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-next-clue-btn:hover {
+  background-color: #3D2314;
+}
