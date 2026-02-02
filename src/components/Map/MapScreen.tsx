@@ -1,11 +1,11 @@
 
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
-
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import '../../App.css'
+import { ClueOverlay } from '../ClueOverlay/ClueOverlay'
 
 export const MapScreen = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +33,9 @@ export const MapScreen = () => {
   }, [])
 
   return (
-    <div id='map-container' ref={mapContainerRef} />
+    <>
+      <div id='map-container' ref={mapContainerRef} />
+      <ClueOverlay />
+    </>
   )
 }
