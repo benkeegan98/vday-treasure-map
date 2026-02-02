@@ -15,6 +15,9 @@ interface MapStateContextType {
   // Clue overlay state
   isClueOverlayOpen: boolean
   setClueOverlayOpen: (open: boolean) => void
+  // Wrong tap shake
+  isShaking: boolean
+  triggerWrongTapShake: () => void
   // Get current target location
   getCurrentTargetLocation: () => Location | undefined
 }
@@ -31,6 +34,7 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
   const [activeModalLocation, setActiveModalLocation] = useState<Location | null>(null)
   const [isNewUnlock, setIsNewUnlock] = useState(false)
   const [isClueOverlayOpen, setIsClueOverlayOpen] = useState(false)
+  const [isShaking, setIsShaking] = useState(false)
 
   const unlockLocation = (locationId: number) => {
     if (!unlockedLocations.includes(locationId)) {
@@ -66,6 +70,11 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
     setIsClueOverlayOpen(open)
   }
 
+  const triggerWrongTapShake = () => {
+    setIsShaking(true)
+    setTimeout(() => setIsShaking(false), 500)
+  }
+
   const getCurrentTargetLocation = (): Location | undefined => {
     return locationData.find((loc) => loc.id === currentStep)
   }
@@ -84,6 +93,8 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
         closeModal,
         isClueOverlayOpen,
         setClueOverlayOpen,
+        isShaking,
+        triggerWrongTapShake,
         getCurrentTargetLocation,
       }}
     >

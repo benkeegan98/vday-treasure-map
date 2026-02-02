@@ -5,7 +5,7 @@ import { useMapState } from '../../context/MapStateContext'
 import './ClueOverlay.css'
 
 export const ClueOverlay = () => {
-  const { currentStep, isClueOverlayOpen, setClueOverlayOpen, getCurrentTargetLocation } = useMapState()
+  const { currentStep, isClueOverlayOpen, setClueOverlayOpen, getCurrentTargetLocation, isShaking } = useMapState()
   const [isOpen, setIsOpen] = useState(false)
   const [visibleClueCount, setVisibleClueCount] = useState(1)
 
@@ -104,7 +104,7 @@ export const ClueOverlay = () => {
   `
 
   return (
-    <div className="clue-overlay">
+    <div className={`clue-overlay ${isShaking ? 'shake' : ''}`}>
       <div
         className="clue-header"
         onClick={() => setIsOpen(!isOpen)}

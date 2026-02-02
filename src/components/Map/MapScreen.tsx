@@ -24,11 +24,12 @@ export const MapScreen = () => {
     unlockLocation,
     openModal,
     getCurrentTargetLocation,
+    triggerWrongTapShake,
   } = useMapState()
 
   // Use refs to avoid stale closures in map event handlers
-  const stateRef = useRef({ getCurrentTargetLocation, unlockLocation, openModal })
-  stateRef.current = { getCurrentTargetLocation, unlockLocation, openModal }
+  const stateRef = useRef({ getCurrentTargetLocation, unlockLocation, openModal, triggerWrongTapShake })
+  stateRef.current = { getCurrentTargetLocation, unlockLocation, openModal, triggerWrongTapShake }
 
   // Add a marker to the map for an unlocked location
   const addMarkerToMap = useCallback((locationId: number) => {
@@ -70,10 +71,31 @@ export const MapScreen = () => {
 
       map.addControl(new mapboxgl.NavigationControl(), 'top-left')
 
+      // Set custom cursor - override Mapbox's default grab/grabbing cursors
+      const customCursor = 'url(/cursors/treasure-cursor.svg) 16 16, crosshair'
+      const canvas = map.getCanvas()
+
+      const setCursor = () => {
+        canvas.style.cursor = customCursor
+      }
+
+      // Set initially and on all relevant events
+      setCursor()
+      map.on('load', setCursor)
+      map.on('idle', setCursor)
+      map.on('dragstart', setCursor)
+      map.on('drag', setCursor)
+      map.on('dragend', setCursor)
+      map.on('movestart', setCursor)
+      map.on('moveend', setCursor)
+      map.on('mousedown', setCursor)
+      map.on('mouseup', setCursor)
+      map.on('mousemove', setCursor)
+
       // Handle map clicks
       map.on('click', (e) => {
         const { lng, lat } = e.lngLat
-        const { getCurrentTargetLocation, unlockLocation, openModal } = stateRef.current
+        const { getCurrentTargetLocation, unlockLocation, openModal, triggerWrongTapShake } = stateRef.current
 
         const targetLocation = getCurrentTargetLocation()
         if (!targetLocation) return
@@ -90,6 +112,8 @@ export const MapScreen = () => {
           unlockLocation(targetLocation.id)
           addMarkerToMap(targetLocation.id)
           openModal(targetLocation, true) // true = fresh unlock
+        } else {
+          triggerWrongTapShake()
         }
       })
 
