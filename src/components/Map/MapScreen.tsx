@@ -38,14 +38,23 @@ export const MapScreen = () => {
     const location = locationData.find((loc) => loc.id === locationId)
     if (!location) return
 
-    // Create custom marker element
+    // Create custom marker element with SVG icon
     const el = document.createElement('div')
     el.className = 'unlocked-marker'
-    el.innerHTML = '📍'
-    el.style.fontSize = '32px'
     el.style.cursor = 'pointer'
+    el.style.width = '40px'
+    el.style.height = '48px'
 
-    const marker = new mapboxgl.Marker({ element: el })
+    // Create img element for the SVG
+    const img = document.createElement('img')
+    img.src = location.markerIcon
+    img.alt = location.name
+    img.style.width = '100%'
+    img.style.height = '100%'
+    img.style.filter = 'drop-shadow(2px 2px 2px rgba(0,0,0,0.3))'
+    el.appendChild(img)
+
+    const marker = new mapboxgl.Marker({ element: el, anchor: 'bottom' })
       .setLngLat([location.long, location.lat])
       .addTo(mapRef.current)
 
