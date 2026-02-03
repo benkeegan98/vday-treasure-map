@@ -25,7 +25,11 @@ export const MapScreen = () => {
     openModal,
     getCurrentTargetLocation,
     triggerWrongTapShake,
+    registerFlyTo,
   } = useMapState()
+
+  // Panel width for fly-to padding calculation (panel width 380 + left margin 24 + extra buffer)
+  const PANEL_WIDTH = 430
 
   // Use refs to avoid stale closures in map event handlers
   const stateRef = useRef({ getCurrentTargetLocation, unlockLocation, openModal, triggerWrongTapShake })
@@ -134,6 +138,33 @@ export const MapScreen = () => {
       }
     }
   }, [addMarkerToMap])
+
+  // Create flyTo handler function
+  const handleFlyTo = useCallback((location: typeof locationData[0]) => {
+    if (!mapRef.current) return
+
+    // Calculate zoom based on acceptableDistanceMetres
+    // Smaller radius = higher zoom
+    let zoom = 14
+    if (location.acceptableDistanceMetres <= 200) zoom = 16
+    else if (location.acceptableDistanceMetres <= 500) zoom = 15
+    else if (location.acceptableDistanceMetres <= 1000) zoom = 14
+    else if (location.acceptableDistanceMetres <= 2000) zoom = 13
+    else zoom = 11
+
+    mapRef.current.flyTo({
+      center: [location.long, location.lat],
+      zoom,
+      padding: { left: PANEL_WIDTH, top: 50, bottom: 50, right: 50 },
+      duration: 2500,
+      essential: true,
+    })
+  }, [])
+
+  // Register flyTo function
+  useEffect(() => {
+    registerFlyTo(handleFlyTo)
+  }, [registerFlyTo, handleFlyTo])
 
   // Add markers for already unlocked locations on mount/update
   useEffect(() => {

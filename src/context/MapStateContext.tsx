@@ -1,5 +1,8 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, useRef, ReactNode } from 'react'
 import { locationData, Location } from '../locations/locationData'
+
+// Type for the flyTo callback function
+type FlyToCallback = (location: Location) => void
 
 interface MapStateContextType {
   currentStep: number
@@ -20,6 +23,9 @@ interface MapStateContextType {
   triggerWrongTapShake: () => void
   // Get current target location
   getCurrentTargetLocation: () => Location | undefined
+  // Fly-to registration
+  registerFlyTo: (callback: FlyToCallback) => void
+  flyToLocation: (location: Location) => void
 }
 
 const MapStateContext = createContext<MapStateContextType | undefined>(undefined)
@@ -35,6 +41,7 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
   const [isNewUnlock, setIsNewUnlock] = useState(false)
   const [isClueOverlayOpen, setIsClueOverlayOpen] = useState(false)
   const [isShaking, setIsShaking] = useState(false)
+  const flyToCallbackRef = useRef<FlyToCallback | null>(null)
 
   const unlockLocation = (locationId: number) => {
     if (!unlockedLocations.includes(locationId)) {
@@ -79,6 +86,16 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
     return locationData.find((loc) => loc.id === currentStep)
   }
 
+  const registerFlyTo = (callback: FlyToCallback) => {
+    flyToCallbackRef.current = callback
+  }
+
+  const flyToLocation = (location: Location) => {
+    if (flyToCallbackRef.current) {
+      flyToCallbackRef.current(location)
+    }
+  }
+
   return (
     <MapStateContext.Provider
       value={{
@@ -96,6 +113,8 @@ export const MapStateProvider = ({ children }: MapStateProviderProps) => {
         isShaking,
         triggerWrongTapShake,
         getCurrentTargetLocation,
+        registerFlyTo,
+        flyToLocation,
       }}
     >
       {children}

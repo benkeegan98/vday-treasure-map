@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, MapPin, Heart } from 'lucide-react'
 import { useMapState } from '../../context/MapStateContext'
 import { locationData } from '../../locations/locationData'
@@ -11,7 +12,25 @@ export const LocationModal = () => {
     setClueOverlayOpen,
     unlockedLocations,
     openModal,
+    flyToLocation,
   } = useMapState()
+
+  const prevLocationRef = useRef<typeof activeModalLocation>(null)
+
+  // Fly to location when it changes
+  useEffect(() => {
+    if (activeModalLocation && activeModalLocation !== prevLocationRef.current) {
+      flyToLocation(activeModalLocation)
+      prevLocationRef.current = activeModalLocation
+    }
+  }, [activeModalLocation, flyToLocation])
+
+  // Reset ref when modal closes
+  useEffect(() => {
+    if (!activeModalLocation) {
+      prevLocationRef.current = null
+    }
+  }, [activeModalLocation])
 
   if (!activeModalLocation) return null
 
@@ -47,8 +66,12 @@ export const LocationModal = () => {
   const hasNext = currentIndex < totalUnlocked - 1
 
   return (
-    <div className="modal-overlay" onClick={closeModal}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <>
+      {/* Overlay for clicking outside to close */}
+      <div className="panel-overlay" onClick={closeModal} />
+
+      {/* Side panel */}
+      <div className="location-panel">
         {/* Decorative corners */}
         <div className="modal-corner corner-tl" />
         <div className="modal-corner corner-tr" />
@@ -121,6 +144,6 @@ export const LocationModal = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
