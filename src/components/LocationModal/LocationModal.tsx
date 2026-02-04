@@ -1,8 +1,34 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { ChevronLeft, ChevronRight, MapPin, Heart } from 'lucide-react'
 import { useMapState } from '../../context/MapStateContext'
 import { locationData } from '../../locations/locationData'
+import { PhotoCarousel } from '../PhotoCarousel/PhotoCarousel'
 import './LocationModal.css'
+
+// Predefined scatter positions for the polaroid pile
+const SCATTER = [
+  { r: -6, x: 0, y: 0 },
+  { r: 4, x: 10, y: -5 },
+  { r: -2, x: -8, y: 3 },
+  { r: 5, x: 12, y: -8 },
+  { r: -4, x: -5, y: 6 },
+  { r: 7, x: 8, y: -3 },
+  { r: -5, x: -12, y: 5 },
+  { r: 3, x: 6, y: -6 },
+  { r: -7, x: -3, y: 8 },
+  { r: 2, x: 10, y: -4 },
+]
+
+const getPolaroidStyle = (index: number, total: number): CSSProperties => {
+  if (total === 1) return { zIndex: 1 }
+  const s = SCATTER[index % SCATTER.length]
+  return {
+    '--r': `${s.r}deg`,
+    '--x': `${s.x}px`,
+    '--y': `${s.y}px`,
+    zIndex: total - index,
+  } as CSSProperties
+}
 
 export const LocationModal = () => {
   const {
@@ -16,6 +42,8 @@ export const LocationModal = () => {
   } = useMapState()
 
   const prevLocationRef = useRef<typeof activeModalLocation>(null)
+  const [carouselOpen, setCarouselOpen] = useState(false)
+  const [carouselIndex, setCarouselIndex] = useState(0)
 
   // Fly to location when it changes
   useEffect(() => {
@@ -130,9 +158,21 @@ export const LocationModal = () => {
 
             {activeModalLocation.photos && activeModalLocation.photos.length > 0 && (
               <div className="modal-section">
-                <div className="modal-photos-placeholder">
-                  [Photo gallery placeholder]
+                <div className="polaroid-gallery">
+                  {activeModalLocation.photos.map((photo, i) => (
+                    <div
+                      key={i}
+                      className="polaroid"
+                      style={getPolaroidStyle(i, activeModalLocation.photos!.length)}
+                      onClick={() => { setCarouselIndex(i); setCarouselOpen(true) }}
+                    >
+                      <img src={photo} alt={`${activeModalLocation.name} photo ${i + 1}`} />
+                    </div>
+                  ))}
                 </div>
+                {activeModalLocation.photos.length > 1 && (
+                  <p className="polaroid-hint">Hover to peek, click to expand</p>
+                )}
               </div>
             )}
 
@@ -144,6 +184,15 @@ export const LocationModal = () => {
           </div>
         </div>
       </div>
+
+      {carouselOpen && activeModalLocation.photos && (
+        <PhotoCarousel
+          photos={activeModalLocation.photos}
+          currentIndex={carouselIndex}
+          onClose={() => setCarouselOpen(false)}
+          onNavigate={setCarouselIndex}
+        />
+      )}
     </>
   )
 }

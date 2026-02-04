@@ -8,7 +8,11 @@
       "Bash(ls:*)",
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(tree:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vite build:*)",
+      "Bash(npm uninstall:*)"
     ]
   }
 }

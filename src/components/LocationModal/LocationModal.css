@@ -27,13 +27,14 @@
   bottom: 24px;
   width: 380px;
   background-color: #F4E4BC;
-  border: 4px solid #5C4033;
+  border: 1px solid rgba(92, 64, 51, 0.2);
   border-radius: 12px;
   z-index: 100;
   display: flex;
   flex-direction: column;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.25),
+    0 12px 40px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.15),
     inset 0 0 60px rgba(139, 115, 85, 0.1);
   animation: slideInLeft 0.4s ease;
 }
@@ -54,7 +55,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  border-color: #5C4033;
+  border-color: rgba(92, 64, 51, 0.3);
   border-style: solid;
   pointer-events: none;
 }
@@ -62,28 +63,28 @@
 .modal-corner.corner-tl {
   top: 10px;
   left: 10px;
-  border-width: 3px 0 0 3px;
+  border-width: 2px 0 0 2px;
   border-radius: 4px 0 0 0;
 }
 
 .modal-corner.corner-tr {
   top: 10px;
   right: 10px;
-  border-width: 3px 3px 0 0;
+  border-width: 2px 2px 0 0;
   border-radius: 0 4px 0 0;
 }
 
 .modal-corner.corner-bl {
   bottom: 10px;
   left: 10px;
-  border-width: 0 0 3px 3px;
+  border-width: 0 0 2px 2px;
   border-radius: 0 0 0 4px;
 }
 
 .modal-corner.corner-br {
   bottom: 10px;
   right: 10px;
-  border-width: 0 3px 3px 0;
+  border-width: 0 2px 2px 0;
   border-radius: 0 0 4px 0;
 }
 
@@ -227,14 +228,45 @@
   font-style: italic;
 }
 
-.modal-photos-placeholder {
-  background-color: #E8D4A8;
-  border: 2px dashed #5C4033;
-  border-radius: 8px;
-  padding: 40px;
+/* ── Polaroid Gallery ── */
+.polaroid-gallery {
+  position: relative;
+  height: 240px;
+}
+
+.polaroid {
+  position: absolute;
+  width: 160px;
+  left: calc(50% - 80px);
+  top: calc(50% - 72px);
+  background: #fff;
+  padding: 8px 8px 28px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+  transform: rotate(var(--r, 0deg)) translate(var(--x, 0px), var(--y, 0px));
+}
+
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  z-index: 20 !important;
+}
+
+.polaroid-hint {
   text-align: center;
   color: #8B7355;
+  font-size: 12px;
   font-style: italic;
+  margin-top: 8px;
 }
 
 .modal-next-clue-btn {
