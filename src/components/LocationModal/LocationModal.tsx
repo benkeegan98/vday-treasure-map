@@ -30,7 +30,11 @@ const getPolaroidStyle = (index: number, total: number): CSSProperties => {
   } as CSSProperties
 }
 
-export const LocationModal = () => {
+interface LocationModalProps {
+  onCelebrate?: () => void
+}
+
+export const LocationModal = ({ onCelebrate }: LocationModalProps) => {
   const {
     activeModalLocation,
     isNewUnlock,
@@ -90,6 +94,7 @@ export const LocationModal = () => {
     setClueOverlayOpen(true)
   }
 
+  const isFinalLocation = activeModalLocation.id === locationData.length
   const hasPrevious = currentIndex > 0
   const hasNext = currentIndex < totalUnlocked - 1
 
@@ -177,8 +182,11 @@ export const LocationModal = () => {
             )}
 
             {isNewUnlock && (
-              <button className="modal-next-clue-btn" onClick={handleRevealNextClue}>
-                Continue Adventure
+              <button
+                className="modal-next-clue-btn"
+                onClick={isFinalLocation && onCelebrate ? onCelebrate : handleRevealNextClue}
+              >
+                {isFinalLocation ? 'Claim Your Treasure' : 'Continue Adventure'}
               </button>
             )}
           </div>

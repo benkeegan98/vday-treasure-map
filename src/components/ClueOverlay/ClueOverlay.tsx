@@ -104,7 +104,8 @@ export const ClueOverlay = ({ isInstructionsOpen }: ClueOverlayProps) => {
     ? locationData.find((loc) => loc.id === lastUnlockedId)
     : null
 
-  const isHidden = !!activeModalLocation || isInstructionsOpen
+  const isComplete = unlockedLocations.length === locationData.length
+  const isHidden = !!activeModalLocation || isInstructionsOpen || isComplete
 
   // Play entrance animation once when becoming visible, then stop
   useEffect(() => {

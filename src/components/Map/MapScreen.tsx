@@ -8,6 +8,7 @@ import '../../App.css'
 import { ClueOverlay } from '../ClueOverlay/ClueOverlay'
 import { LocationModal } from '../LocationModal/LocationModal'
 import { InstructionsModal } from '../InstructionsModal/InstructionsModal'
+import { CelebrationModal } from '../CelebrationModal/CelebrationModal'
 import { useMapState } from '../../context/MapStateContext'
 import { locationData } from '../../locations/locationData'
 import { getDistanceInMeters } from '../../utils/distance'
@@ -18,11 +19,13 @@ export const MapScreen = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const markersRef = useRef<Map<number, mapboxgl.Marker>>(new Map())
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(true)
+  const [isCelebrationOpen, setIsCelebrationOpen] = useState(false)
 
   const {
     unlockedLocations,
     unlockLocation,
     openModal,
+    closeModal,
     getCurrentTargetLocation,
     triggerWrongTapShake,
     registerFlyTo,
@@ -161,6 +164,16 @@ export const MapScreen = () => {
     })
   }, [])
 
+  // Handle celebration modal close — fit map to show all markers
+  const handleCelebrationClose = useCallback(() => {
+    setIsCelebrationOpen(false)
+    if (mapRef.current) {
+      const bounds = new mapboxgl.LngLatBounds()
+      locationData.forEach(loc => bounds.extend([loc.long, loc.lat]))
+      mapRef.current.fitBounds(bounds, { padding: 60, duration: 2000 })
+    }
+  }, [])
+
   // Register flyTo function
   useEffect(() => {
     registerFlyTo(handleFlyTo)
@@ -184,11 +197,12 @@ export const MapScreen = () => {
         <Info size={20} />
       </button>
       <ClueOverlay isInstructionsOpen={isInstructionsOpen} />
-      <LocationModal />
+      <LocationModal onCelebrate={() => { closeModal(); setIsCelebrationOpen(true) }} />
       <InstructionsModal
         isOpen={isInstructionsOpen}
         onClose={() => setIsInstructionsOpen(false)}
       />
+      {isCelebrationOpen && <CelebrationModal onClose={handleCelebrationClose} />}
     </>
   )
 }
