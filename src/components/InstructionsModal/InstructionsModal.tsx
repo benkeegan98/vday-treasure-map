@@ -63,7 +63,7 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
             </div>
 
             <p className="instructions-hint">
-              Stuck? Tap "Show another clue" to reveal more hints.
+              Stuck? Tap the hint cards to reveal more clues.
             </p>
           </div>
 

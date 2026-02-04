@@ -1,18 +1,19 @@
-/* Bottom-center floating clue card */
-.clue-overlay {
+/* ── Wrapper — fixed positioning, centering, animation ── */
+.clue-wrapper {
   position: fixed;
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  width: 420px;
+  width: 560px;
   max-width: calc(100% - 48px);
-  background-color: #F4E4BC;
-  border: 4px solid #5C4033;
-  border-radius: 12px;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.25),
-    inset 0 0 60px rgba(139, 115, 85, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.clue-wrapper.entering {
   animation: clueSlideUp 0.4s ease;
 }
 
@@ -25,6 +26,18 @@
     transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
+}
+
+/* ── Overlay card (parchment) ── */
+.clue-overlay {
+  width: 100%;
+  background-color: #F4E4BC;
+  border: 4px solid #5C4033;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 0 60px rgba(139, 115, 85, 0.1);
+  position: relative;
 }
 
 /* Decorative corners */
@@ -67,76 +80,185 @@
 
 /* Inner padding */
 .clue-inner {
-  padding: 28px 32px 24px;
+  padding: 20px;
 }
 
-/* Title */
-.clue-title {
-  margin: 0 0 12px 0;
-  font-size: 20px;
-  color: #3D2314;
+/* ── Card layout ── */
+.clue-cards-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Individual card wrapper — holds perspective */
+.clue-card {
+  width: 150px;
+  height: 210px;
+  perspective: 1600px;
+  flex-shrink: 0;
+}
+
+/* ── Card inner — the piece that rotates ── */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.clue-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Shared face styles */
+.card-front,
+.card-back {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  border: 2px solid #5C4033;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Face-down (front) ── */
+.card-front {
+  background-color: #E8D4A8;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: inset 0 0 20px rgba(92, 64, 51, 0.15);
+}
+
+.card-front-decoration {
+  font-size: 48px;
+  color: #5C4033;
+  font-family: 'Fondamento', Georgia, serif;
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.card-front-label {
+  font-size: 12px;
+  color: #8B7355;
+  font-family: 'Fondamento', Georgia, serif;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+/* ── Clickable (next to flip) ── */
+.clue-card.clickable {
+  cursor: pointer;
+}
+
+.clue-card.clickable .card-front {
+  animation: cardGlow 2s ease-in-out infinite;
+  border-color: #A52A2A;
+}
+
+.clue-card.clickable .card-front-decoration {
+  opacity: 0.8;
+  color: #A52A2A;
+}
+
+@keyframes cardGlow {
+  0%, 100% {
+    box-shadow: inset 0 0 20px rgba(92, 64, 51, 0.15);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 20px rgba(92, 64, 51, 0.15),
+      0 0 16px rgba(165, 42, 42, 0.25);
+  }
+}
+
+.clue-card.clickable:hover .card-front {
+  background-color: #DEC898;
+}
+
+/* ── Locked (not yet available) ── */
+.clue-card.locked {
+  opacity: 0.5;
+}
+
+/* ── Face-up (back) ── */
+.card-back {
+  background-color: #F4E4BC;
+  transform: rotateY(180deg);
+  padding: 14px;
+  justify-content: flex-start;
+  box-shadow: inset 0 0 20px rgba(139, 115, 85, 0.1);
+}
+
+.card-back-label {
+  font-size: 13px;
+  color: #A52A2A;
   font-family: 'Fondamento', Georgia, serif;
   letter-spacing: 1px;
-  text-align: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
-/* Clue content area */
-.clue-content {
-  color: #3D2314;
-}
-
-/* Individual clue text */
-.clue-text {
-  margin: 0 0 12px 0;
+.card-back-content {
+  font-size: 16px;
   line-height: 1.5;
-  font-size: 15px;
-  padding-left: 12px;
-  border-left: 2px solid #5C4033;
   color: #5C4033;
-}
-
-.clue-text:last-of-type {
-  margin-bottom: 0;
-}
-
-/* Fade-in for newly revealed clues */
-.clue-fade-in {
-  animation: clueFadeIn 0.4s ease-in-out;
-}
-
-@keyframes clueFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Reveal more clues button */
-.reveal-clue-btn {
-  margin-top: 16px;
-  padding: 10px 16px;
-  background-color: transparent;
-  color: #5C4033;
-  border: 1px solid #5C4033;
-  border-radius: 6px;
-  font-size: 13px;
-  font-family: 'Fondamento', Georgia, serif;
-  cursor: pointer;
-  transition: all 0.2s;
+  text-align: left;
   width: 100%;
+  overflow-y: auto;
 }
 
-.reveal-clue-btn:hover {
-  background-color: #5C4033;
-  color: #F4E4BC;
+/* Typewriter blinking cursor */
+.typewriter-cursor {
+  animation: blink 0.7s step-end infinite;
+  color: #A52A2A;
+  font-weight: bold;
 }
 
-/* Wrong tap shake animation */
-.clue-overlay.shake {
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Progress bar ── */
+.progress-bar {
+  width: 90%;
+  padding: 0 16px;
+}
+
+.progress-track {
+  height: 3px;
+  background: rgba(92, 64, 51, 0.25);
+  border-radius: 2px;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #5C4033;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+  position: relative;
+}
+
+.progress-icon {
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 34px;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* ── Shake animation (on wrapper) ── */
+.clue-wrapper.shake {
   animation: shake 0.5s ease-in-out;
 }
 
@@ -146,9 +268,9 @@
   20%, 40%, 60%, 80% { transform: translateX(-50%) translateX(6px); }
 }
 
-/* Mobile responsive */
+/* ── Mobile responsive ── */
 @media (max-width: 768px) {
-  .clue-overlay {
+  .clue-wrapper {
     bottom: 16px;
     width: auto;
     left: 16px;
@@ -169,14 +291,27 @@
   }
 
   .clue-inner {
-    padding: 24px 20px 20px;
+    padding: 16px;
   }
 
-  .clue-title {
-    font-size: 18px;
+  .clue-card {
+    width: 120px;
+    height: 170px;
   }
 
-  .clue-overlay.shake {
+  .card-front-decoration {
+    font-size: 36px;
+  }
+
+  .card-back {
+    padding: 10px;
+  }
+
+  .card-back-content {
+    font-size: 14px;
+  }
+
+  .clue-wrapper.shake {
     animation: shakeMobile 0.5s ease-in-out;
   }
 
