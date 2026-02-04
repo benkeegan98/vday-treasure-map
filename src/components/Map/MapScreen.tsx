@@ -183,7 +183,7 @@ export const MapScreen = () => {
       >
         <Info size={20} />
       </button>
-      <ClueOverlay />
+      <ClueOverlay isInstructionsOpen={isInstructionsOpen} />
       <LocationModal />
       <InstructionsModal
         isOpen={isInstructionsOpen}

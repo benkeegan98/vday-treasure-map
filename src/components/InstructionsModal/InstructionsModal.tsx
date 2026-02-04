@@ -46,7 +46,7 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
             <div className="instructions-steps">
               <div className="instruction-step">
                 <span className="step-number">1</span>
-                <p>Read the clues in the top-right panel to help you find the next location.</p>
+                <p>Read the clues at the bottom of the screen to help you find the next location.</p>
               </div>
               <div className="instruction-step">
                 <span className="step-number">2</span>
@@ -63,7 +63,7 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
             </div>
 
             <p className="instructions-hint">
-              Stuck? Tap the clue panel to reveal more hints.
+              Stuck? Tap "Show another clue" to reveal more hints.
             </p>
           </div>
 

@@ -1,15 +1,23 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
-import { css } from '@emotion/css'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { useMapState } from '../../context/MapStateContext'
 import './ClueOverlay.css'
 
-export const ClueOverlay = () => {
-  const { currentStep, isClueOverlayOpen, setClueOverlayOpen, getCurrentTargetLocation, isShaking } = useMapState()
-  const [isOpen, setIsOpen] = useState(false)
+interface ClueOverlayProps {
+  isInstructionsOpen: boolean
+}
+
+export const ClueOverlay = ({ isInstructionsOpen }: ClueOverlayProps) => {
+  const {
+    currentStep,
+    isClueOverlayOpen,
+    setClueOverlayOpen,
+    getCurrentTargetLocation,
+    activeModalLocation,
+    isShaking,
+  } = useMapState()
+
   const [visibleClueCount, setVisibleClueCount] = useState(1)
 
-  // Get current location's clues
   const targetLocation = getCurrentTargetLocation()
   const clues = targetLocation?.clues || []
   const hasMoreClues = visibleClueCount < clues.length
@@ -19,77 +27,12 @@ export const ClueOverlay = () => {
     setVisibleClueCount(1)
   }, [currentStep])
 
-  // Sync with context state (for when modal triggers open)
+  // Consume the context trigger (reset it)
   useEffect(() => {
-    if (isClueOverlayOpen && !isOpen) {
-      setIsOpen(true)
-      setClueOverlayOpen(false) // Reset the trigger
+    if (isClueOverlayOpen) {
+      setClueOverlayOpen(false)
     }
-  }, [isClueOverlayOpen, isOpen, setClueOverlayOpen])
-
-  const [isFullyOpened, setIsFullyOpened] = useState(false)
-  const [height, setHeight] = useState(0)
-  const contentRef = useRef<HTMLDivElement>(null)
-  const observer = useRef<ResizeObserver | null>(null)
-
-  const maxHeight = isOpen && isFullyOpened ? 'unset' : `${height}px`
-  const overflow = isFullyOpened ? 'unset' : 'hidden'
-
-  const updateScrollHeight = useCallback(() => {
-    if (!contentRef.current) return
-    setHeight(contentRef.current.scrollHeight)
-  }, [])
-
-  // Avoids stale closure issues
-  const state = useRef({ isFullyOpened, isOpen })
-  state.current = { isFullyOpened, isOpen }
-
-  useEffect(() => {
-    if (!contentRef.current) return
-
-    if (isOpen && !isFullyOpened) {
-      // Opening
-      updateScrollHeight()
-      if (!observer.current) {
-        observer.current = new ResizeObserver(() => updateScrollHeight())
-        observer.current.observe(contentRef.current)
-      }
-    } else if (isOpen && isFullyOpened) {
-      // Fully open
-      if (observer.current) {
-        observer.current.disconnect()
-        observer.current = null
-      }
-    } else if (!isOpen && isFullyOpened) {
-      // Closing from open
-      updateScrollHeight()
-      requestAnimationFrame(() => {
-        setIsFullyOpened(false)
-        setHeight(0)
-      })
-    } else if (!isOpen && !isFullyOpened) {
-      // Interruption: opening > closing
-      if (observer.current) {
-        observer.current.disconnect()
-        observer.current = null
-        setHeight(0)
-      }
-    }
-  }, [isOpen, isFullyOpened, updateScrollHeight])
-
-  useEffect(() => {
-    return () => observer.current?.disconnect()
-  }, [])
-
-  const handleTransitionEnd = useCallback(
-    (e: React.TransitionEvent<HTMLDivElement>) => {
-      if (e.currentTarget !== e.target) return
-      if (state.current.isOpen && !state.current.isFullyOpened) {
-        setIsFullyOpened(true)
-      }
-    },
-    []
-  )
+  }, [isClueOverlayOpen, setClueOverlayOpen])
 
   const handleRevealNextClue = () => {
     if (hasMoreClues) {
@@ -97,26 +40,23 @@ export const ClueOverlay = () => {
     }
   }
 
-  const contentContainerStyle = css`
-    transition: max-height 0.25s ease-in-out;
-    max-height: ${maxHeight};
-    overflow: ${overflow};
-  `
+  // Hide when any modal is open
+  if (activeModalLocation || isInstructionsOpen) {
+    return null
+  }
 
   return (
     <div className={`clue-overlay ${isShaking ? 'shake' : ''}`}>
-      <div
-        className="clue-header"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <h2>Clue #{currentStep}</h2>
-        {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-      </div>
-      <div
-        className={contentContainerStyle}
-        onTransitionEnd={handleTransitionEnd}
-      >
-        <div ref={contentRef} className="clue-content">
+      {/* Decorative corners */}
+      <div className="clue-corner corner-tl" />
+      <div className="clue-corner corner-tr" />
+      <div className="clue-corner corner-bl" />
+      <div className="clue-corner corner-br" />
+
+      <div className="clue-inner">
+        <h2 className="clue-title">Clue #{currentStep}</h2>
+
+        <div className="clue-content">
           {clues.length === 0 ? (
             <p className="clue-text">No clues available yet...</p>
           ) : (
@@ -124,7 +64,7 @@ export const ClueOverlay = () => {
               {clues.slice(0, visibleClueCount).map((clue, index) => (
                 <p
                   key={index}
-                  className={`clue-text ${index === visibleClueCount - 1 ? 'clue-fade-in' : ''}`}
+                  className={`clue-text ${index === visibleClueCount - 1 && visibleClueCount > 1 ? 'clue-fade-in' : ''}`}
                 >
                   {clue}
                 </p>
