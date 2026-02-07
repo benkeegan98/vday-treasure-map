@@ -291,21 +291,6 @@
   transition: gap 0.4s ease;
 }
 
-.celebration-buttons.no-gone {
-  gap: 0;
-}
-
-@keyframes buttonsAppear {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .celebration-yes-btn {
   display: inline-block;
   padding: 14px 40px;
@@ -320,6 +305,30 @@
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(165, 42, 42, 0.3);
+}
+
+.celebration-buttons.yes-centered .celebration-yes-btn {
+  animation: slideToCenter 0.5s ease forwards;
+}
+
+@keyframes slideToCenter {
+  from {
+    transform: translateX(-30px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes buttonsAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .celebration-yes-btn:hover {
@@ -358,23 +367,10 @@
   0% {
     transform: translate(0, 0) rotate(0deg);
     opacity: 1;
-    width: auto;
-    padding: 10px 20px;
-    margin: 0;
-  }
-  50% {
-    transform: translate(150px, -100px) rotate(25deg);
-    opacity: 0.5;
-    width: auto;
-    padding: 10px 20px;
   }
   100% {
     transform: translate(300px, -200px) rotate(45deg);
     opacity: 0;
-    width: 0;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
   }
 }
 

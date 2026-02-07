@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Heart } from 'lucide-react'
-import { fireHeartsConfetti, fireHeartsAtPosition } from '../../utils/confetti'
+import { fireHeartsConfetti, fireHeartsAtPosition, fireBigCelebration } from '../../utils/confetti'
 import { TreasureChest } from './TreasureChest'
 import './CelebrationModal.css'
 
@@ -14,7 +14,8 @@ interface CelebrationModalProps {
 
 export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
   const [phase, setPhase] = useState<Phase>('intro')
-  const [noButtonGone, setNoButtonGone] = useState(false)
+  const [noButtonFlying, setNoButtonFlying] = useState(false)
+  const [noButtonUnmounted, setNoButtonUnmounted] = useState(false)
 
   // Fire confetti on mount
   useEffect(() => {
@@ -52,7 +53,11 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
   }
 
   const handleNoHover = () => {
-    setNoButtonGone(true)
+    setNoButtonFlying(true)
+    // After fly animation completes, unmount the button
+    setTimeout(() => {
+      setNoButtonUnmounted(true)
+    }, 800)
   }
 
   return (
@@ -99,20 +104,22 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
           )}
 
           {phase === 'revealed' && (
-            <div className={`celebration-buttons ${noButtonGone ? 'no-gone' : ''}`}>
+            <div className={`celebration-buttons ${noButtonUnmounted ? 'yes-centered' : ''}`}>
               <button
                 className="celebration-yes-btn"
-                onClick={() => { fireHeartsConfetti(); setPhase('loading') }}
+                onClick={() => { fireBigCelebration(); setPhase('loading') }}
               >
                 Yes!
               </button>
-              <button
-                className={`celebration-no-btn ${noButtonGone ? 'flying-away' : ''}`}
-                onMouseEnter={handleNoHover}
-                onTouchStart={(e) => { e.preventDefault(); handleNoHover() }}
-              >
-                No
-              </button>
+              {!noButtonUnmounted && (
+                <button
+                  className={`celebration-no-btn ${noButtonFlying ? 'flying-away' : ''}`}
+                  onMouseEnter={handleNoHover}
+                  onTouchStart={(e) => { e.preventDefault(); handleNoHover() }}
+                >
+                  No
+                </button>
+              )}
             </div>
           )}
 

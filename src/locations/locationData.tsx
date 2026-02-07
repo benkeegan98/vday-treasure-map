@@ -141,7 +141,8 @@ export const locationData: Location[] = [
     markerIcon: '/markers/scuba-mask.svg',
     clues: [
       "First time encountering Spiderman's most menacing adversary - Doc Oc",
-      "Our first breath underwater",
+      "The place where we first became best Buddies :)",
+      "The place where we took our very first breath underwater...",
     ],
     photos: [
       '/images/locations/7/IMG_4335.jpg',
@@ -184,7 +185,7 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 800,
     markerIcon: '/markers/boat.svg',
     clues: [
-      "Lobster's unfortunately could not Dodge this Trap",
+      "The Lobsters unfortunately could not 'Dodge' this Trap",
       "Pretty sure we still have a chess match to finish...",
       "Kelp Bass love... frozen peas...?",
     ],
@@ -239,7 +240,7 @@ export const locationData: Location[] = [
     clues: [
       "Definitely a balancing act...",
       "Found out we have different tastes in alcoholic hot drinks",
-      "First time seeing you on ice"
+      "I'm grateful and impressed that our asses remained bruise-free and dry after this date"
     ],
     photos: [
       '/images/locations/11/IMG_3861.jpeg',
@@ -271,6 +272,6 @@ export const locationData: Location[] = [
       '/images/locations/12/IMG_3915.JPG',
       '/images/locations/12/IMG_8999.jpeg',
     ],
-    description: "My pookie for real :) \n\nI know I took a little too long to ask you to me mine, but I'm so glad we got to share such a special day and moment here. \n\nEvery time we've been together in Laguna has felt special, whether it's being in the water with you, throwing frisbees on the beach, or laying out in the sun. "
+    description: "My pookie for real :) \n\nI know I took a little too long to ask you to me mine, but I'm so glad we got to share such a special day and moment here. \n\nEvery time we've been together in Laguna has felt special, whether it's being in the water with you, throwing frisbees on the beach, exploring tide pools, laying out in the sun. \n\nVery excited for the next time we get to go here together 😉"
   }
 ]

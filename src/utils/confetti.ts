@@ -15,6 +15,7 @@ export const fireHeartsConfetti = () => {
     shapes: [heart],
     colors: ['#A52A2A', '#D4576B', '#FF6B8A', '#5C4033', '#8B4557'],
     scalar: 1.5,
+    zIndex: 1000,
   }
 
   // Big center burst
@@ -51,6 +52,76 @@ export const fireHeartsConfetti = () => {
   }, 200)
 }
 
+// Big celebration explosion for Yes button
+export const fireBigCelebration = () => {
+  const defaults = {
+    spread: 360,
+    ticks: 200,
+    gravity: 0.4,
+    decay: 0.92,
+    startVelocity: 50,
+    shapes: [heart],
+    colors: ['#A52A2A', '#D4576B', '#FF6B8A', '#5C4033', '#8B4557', '#FFD700'],
+    scalar: 2,
+    zIndex: 1000,
+  }
+
+  // Initial massive burst
+  confetti({
+    ...defaults,
+    particleCount: 100,
+    origin: { x: 0.5, y: 0.5 },
+  })
+
+  // Side bursts
+  setTimeout(() => {
+    confetti({
+      ...defaults,
+      particleCount: 50,
+      origin: { x: 0.2, y: 0.5 },
+    })
+    confetti({
+      ...defaults,
+      particleCount: 50,
+      origin: { x: 0.8, y: 0.5 },
+    })
+  }, 150)
+
+  // More bursts from corners
+  setTimeout(() => {
+    confetti({
+      ...defaults,
+      particleCount: 40,
+      origin: { x: 0.1, y: 0.3 },
+    })
+    confetti({
+      ...defaults,
+      particleCount: 40,
+      origin: { x: 0.9, y: 0.3 },
+    })
+  }, 300)
+
+  // Final big center burst
+  setTimeout(() => {
+    confetti({
+      ...defaults,
+      particleCount: 80,
+      startVelocity: 60,
+      origin: { x: 0.5, y: 0.4 },
+    })
+  }, 450)
+
+  // Extra flourish
+  setTimeout(() => {
+    confetti({
+      ...defaults,
+      particleCount: 60,
+      spread: 180,
+      origin: { x: 0.5, y: 0.7 },
+    })
+  }, 600)
+}
+
 // Alternative: burst from specific screen position
 export const fireHeartsAtPosition = (x: number, y: number) => {
   const defaults = {
@@ -62,6 +133,7 @@ export const fireHeartsAtPosition = (x: number, y: number) => {
     shapes: [heart],
     colors: ['#A52A2A', '#D4576B', '#FF6B8A', '#5C4033', '#8B4557'],
     scalar: 1.2,
+    zIndex: 1000,
   }
 
   confetti({

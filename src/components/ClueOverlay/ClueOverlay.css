@@ -5,7 +5,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  width: 560px;
+  width: 640px;
   max-width: calc(100% - 48px);
   display: flex;
   flex-direction: column;
@@ -104,8 +104,8 @@
 
 /* Individual card wrapper — holds perspective */
 .clue-card {
-  width: 150px;
-  height: 210px;
+  width: 175px;
+  height: 245px;
   perspective: 1600px;
   opacity: 0.8;
   flex-shrink: 0;
@@ -222,9 +222,12 @@
   font-size: 16px;
   line-height: 1.5;
   color: #5C4033;
-  text-align: left;
+  text-align: center;
   width: 100%;
   overflow-y: auto;
+  flex: 1;
+  display: flex;
+  align-items: start;
 }
 
 /* Typewriter blinking cursor */
@@ -308,8 +311,8 @@
   }
 
   .clue-card {
-    width: 120px;
-    height: 170px;
+    width: 140px;
+    height: 200px;
   }
 
   .card-front-decoration {

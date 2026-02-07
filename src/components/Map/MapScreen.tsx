@@ -18,8 +18,8 @@ export const MapScreen = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const markersRef = useRef<Map<number, mapboxgl.Marker>>(new Map())
-  const [isInstructionsOpen, setIsInstructionsOpen] = useState(true)
-  const [isCelebrationOpen, setIsCelebrationOpen] = useState(false)
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState(false)
+  const [isCelebrationOpen, setIsCelebrationOpen] = useState(true)
 
   const {
     unlockedLocations,
