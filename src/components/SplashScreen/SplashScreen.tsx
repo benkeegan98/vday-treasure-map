@@ -81,21 +81,47 @@ const splashPhotos = [
   '/images/splash/IMG_7138 Small.jpeg',
 ]
 
-// Positions for 76 polaroids covering all edges with multiple layers
+// Positions for polaroids covering all edges with multiple layers
 // Each position: side, along (%), rotate (deg), inward (px from edge)
+// Ordered so inner layers (low z-index) render behind outer layers
 const polaroidPositions = [
-  // ═══ TOP EDGE - outer row ═══
-  { side: 'top', along: 3, rotate: -15, inward: 20 },
-  { side: 'top', along: 12, rotate: 8, inward: 15 },
-  { side: 'top', along: 22, rotate: -6, inward: 25 },
-  { side: 'top', along: 32, rotate: 12, inward: 10 },
-  { side: 'top', along: 42, rotate: -10, inward: 20 },
-  { side: 'top', along: 52, rotate: 5, inward: 18 },
-  { side: 'top', along: 62, rotate: -8, inward: 12 },
-  { side: 'top', along: 72, rotate: 14, inward: 22 },
-  { side: 'top', along: 82, rotate: -4, inward: 16 },
-  { side: 'top', along: 92, rotate: 9, inward: 20 },
-  // TOP EDGE - inner row
+  // ═══ INNER LAYERS FIRST (lowest z-index, rendered behind) ═══
+  // LEFT inner row (reaching toward middle)
+  { side: 'left', along: 8, rotate: 15, inward: 200 },
+  { side: 'left', along: 24, rotate: -8, inward: 190 },
+  { side: 'left', along: 40, rotate: 11, inward: 210 },
+  { side: 'left', along: 56, rotate: -13, inward: 195 },
+  { side: 'left', along: 72, rotate: 7, inward: 205 },
+  { side: 'left', along: 88, rotate: -10, inward: 185 },
+  // RIGHT inner row (reaching toward middle)
+  { side: 'right', along: 12, rotate: -14, inward: 195 },
+  { side: 'right', along: 28, rotate: 9, inward: 208 },
+  { side: 'right', along: 44, rotate: -7, inward: 188 },
+  { side: 'right', along: 60, rotate: 12, inward: 212 },
+  { side: 'right', along: 76, rotate: -10, inward: 198 },
+  { side: 'right', along: 92, rotate: 6, inward: 205 },
+
+  // ═══ MIDDLE LAYERS ═══
+  // LEFT middle row
+  { side: 'left', along: 10, rotate: -10, inward: 110 },
+  { side: 'left', along: 22, rotate: 12, inward: 100 },
+  { side: 'left', along: 34, rotate: -7, inward: 115 },
+  { side: 'left', along: 46, rotate: 9, inward: 105 },
+  { side: 'left', along: 58, rotate: -14, inward: 112 },
+  { side: 'left', along: 70, rotate: 6, inward: 98 },
+  { side: 'left', along: 82, rotate: -11, inward: 118 },
+  { side: 'left', along: 94, rotate: 8, inward: 108 },
+  // RIGHT middle row
+  { side: 'right', along: 8, rotate: 11, inward: 105 },
+  { side: 'right', along: 20, rotate: -9, inward: 112 },
+  { side: 'right', along: 32, rotate: 6, inward: 98 },
+  { side: 'right', along: 44, rotate: -12, inward: 118 },
+  { side: 'right', along: 56, rotate: 8, inward: 108 },
+  { side: 'right', along: 68, rotate: -7, inward: 100 },
+  { side: 'right', along: 80, rotate: 13, inward: 115 },
+  { side: 'right', along: 92, rotate: -10, inward: 102 },
+
+  // ═══ TOP EDGE - inner row ═══
   { side: 'top', along: 8, rotate: 10, inward: 90 },
   { side: 'top', along: 18, rotate: -12, inward: 85 },
   { side: 'top', along: 28, rotate: 7, inward: 95 },
@@ -106,18 +132,6 @@ const polaroidPositions = [
   { side: 'top', along: 78, rotate: -11, inward: 98 },
   { side: 'top', along: 88, rotate: 8, inward: 85 },
   { side: 'top', along: 98, rotate: -7, inward: 90 },
-
-  // ═══ BOTTOM EDGE - outer row ═══
-  { side: 'bottom', along: 5, rotate: 12, inward: 18 },
-  { side: 'bottom', along: 15, rotate: -8, inward: 22 },
-  { side: 'bottom', along: 25, rotate: 6, inward: 15 },
-  { side: 'bottom', along: 35, rotate: -14, inward: 25 },
-  { side: 'bottom', along: 45, rotate: 9, inward: 12 },
-  { side: 'bottom', along: 55, rotate: -5, inward: 20 },
-  { side: 'bottom', along: 65, rotate: 11, inward: 16 },
-  { side: 'bottom', along: 75, rotate: -10, inward: 24 },
-  { side: 'bottom', along: 85, rotate: 7, inward: 18 },
-  { side: 'bottom', along: 95, rotate: -13, inward: 14 },
   // BOTTOM EDGE - inner row
   { side: 'bottom', along: 10, rotate: -6, inward: 88 },
   { side: 'bottom', along: 20, rotate: 10, inward: 82 },
@@ -129,47 +143,50 @@ const polaroidPositions = [
   { side: 'bottom', along: 80, rotate: 5, inward: 80 },
   { side: 'bottom', along: 90, rotate: -11, inward: 88 },
 
-  // ═══ LEFT EDGE - outer row ═══
-  { side: 'left', along: 5, rotate: 18, inward: 15 },
-  { side: 'left', along: 15, rotate: -12, inward: 22 },
-  { side: 'left', along: 25, rotate: 8, inward: 18 },
-  { side: 'left', along: 35, rotate: -15, inward: 12 },
-  { side: 'left', along: 45, rotate: 10, inward: 25 },
-  { side: 'left', along: 55, rotate: -6, inward: 20 },
-  { side: 'left', along: 65, rotate: 14, inward: 16 },
-  { side: 'left', along: 75, rotate: -9, inward: 22 },
-  { side: 'left', along: 85, rotate: 7, inward: 18 },
-  { side: 'left', along: 95, rotate: -13, inward: 14 },
-  // LEFT EDGE - inner row
-  { side: 'left', along: 10, rotate: -10, inward: 85 },
-  { side: 'left', along: 22, rotate: 12, inward: 78 },
-  { side: 'left', along: 34, rotate: -7, inward: 90 },
-  { side: 'left', along: 46, rotate: 9, inward: 82 },
-  { side: 'left', along: 58, rotate: -14, inward: 88 },
-  { side: 'left', along: 70, rotate: 6, inward: 80 },
-  { side: 'left', along: 82, rotate: -11, inward: 92 },
-  { side: 'left', along: 94, rotate: 8, inward: 85 },
-
-  // ═══ RIGHT EDGE - outer row ═══
-  { side: 'right', along: 5, rotate: -16, inward: 18 },
-  { side: 'right', along: 15, rotate: 10, inward: 24 },
-  { side: 'right', along: 25, rotate: -8, inward: 15 },
-  { side: 'right', along: 35, rotate: 14, inward: 20 },
-  { side: 'right', along: 45, rotate: -11, inward: 25 },
-  { side: 'right', along: 55, rotate: 7, inward: 18 },
-  { side: 'right', along: 65, rotate: -13, inward: 22 },
-  { side: 'right', along: 75, rotate: 9, inward: 16 },
-  { side: 'right', along: 85, rotate: -6, inward: 20 },
-  { side: 'right', along: 95, rotate: 12, inward: 14 },
-  // RIGHT EDGE - inner row
-  { side: 'right', along: 8, rotate: 11, inward: 82 },
-  { side: 'right', along: 20, rotate: -9, inward: 88 },
-  { side: 'right', along: 32, rotate: 6, inward: 78 },
-  { side: 'right', along: 44, rotate: -12, inward: 92 },
-  { side: 'right', along: 56, rotate: 8, inward: 85 },
-  { side: 'right', along: 68, rotate: -7, inward: 80 },
-  { side: 'right', along: 80, rotate: 13, inward: 90 },
-  { side: 'right', along: 92, rotate: -10, inward: 84 },
+  // ═══ OUTER LAYERS (highest z-index, rendered on top) ═══
+  // TOP EDGE - outer row
+  { side: 'top', along: 3, rotate: -15, inward: 20 },
+  { side: 'top', along: 12, rotate: 8, inward: 15 },
+  { side: 'top', along: 22, rotate: -6, inward: 25 },
+  { side: 'top', along: 32, rotate: 12, inward: 10 },
+  { side: 'top', along: 42, rotate: -10, inward: 20 },
+  { side: 'top', along: 52, rotate: 5, inward: 18 },
+  { side: 'top', along: 62, rotate: -8, inward: 12 },
+  { side: 'top', along: 72, rotate: 14, inward: 22 },
+  { side: 'top', along: 82, rotate: -4, inward: 16 },
+  { side: 'top', along: 92, rotate: 9, inward: 20 },
+  // BOTTOM EDGE - outer row
+  { side: 'bottom', along: 5, rotate: 12, inward: 18 },
+  { side: 'bottom', along: 15, rotate: -8, inward: 22 },
+  { side: 'bottom', along: 25, rotate: 6, inward: 15 },
+  { side: 'bottom', along: 35, rotate: -14, inward: 25 },
+  { side: 'bottom', along: 45, rotate: 9, inward: 12 },
+  { side: 'bottom', along: 55, rotate: -5, inward: 20 },
+  { side: 'bottom', along: 65, rotate: 11, inward: 16 },
+  { side: 'bottom', along: 75, rotate: -10, inward: 24 },
+  { side: 'bottom', along: 85, rotate: 7, inward: 18 },
+  { side: 'bottom', along: 95, rotate: -13, inward: 14 },
+  // LEFT & RIGHT EDGE - outer rows (spread across full height, paired by section)
+  // These first 10 positions will definitely have photos (77 photos, 83 positions)
+  { side: 'left', along: 10, rotate: 18, inward: 15 },
+  { side: 'right', along: 10, rotate: -16, inward: 18 },
+  { side: 'left', along: 30, rotate: -12, inward: 22 },
+  { side: 'right', along: 30, rotate: 10, inward: 24 },
+  { side: 'left', along: 50, rotate: 8, inward: 18 },
+  { side: 'right', along: 50, rotate: -8, inward: 15 },
+  { side: 'left', along: 70, rotate: -15, inward: 12 },
+  { side: 'right', along: 70, rotate: 14, inward: 20 },
+  { side: 'left', along: 90, rotate: 10, inward: 25 },
+  { side: 'right', along: 90, rotate: -11, inward: 25 },
+  // Extra positions that fill in gaps (may not always have photos)
+  { side: 'left', along: 20, rotate: -6, inward: 20 },
+  { side: 'right', along: 20, rotate: 7, inward: 18 },
+  { side: 'left', along: 40, rotate: 14, inward: 16 },
+  { side: 'right', along: 40, rotate: -13, inward: 22 },
+  { side: 'left', along: 60, rotate: -9, inward: 22 },
+  { side: 'right', along: 60, rotate: 9, inward: 16 },
+  { side: 'left', along: 80, rotate: 12, inward: 18 },
+  { side: 'right', along: 80, rotate: -10, inward: 20 },
 ]
 
 interface SplashScreenProps {
