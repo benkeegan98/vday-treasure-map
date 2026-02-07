@@ -27,7 +27,7 @@ export const locationData: Location[] = [
       '/images/locations/1/IMG_3476.PNG',
       '/images/locations/1/IMG_4316.JPG',
     ],
-    description: "It all started with the Hinge algorithm, who are we to argue? We decided waking up in a new city was a little too much for a first date so we settled on your favorite dessert in the world... \n\n Who knew a cute Mother's Day Ice Cream date would turn into my favorite person :) \n\n Stella Jeans Ube Ice Cream remains undefeated. "
+    description: "It all started with the Hinge algorithm, who are we to argue? We decided waking up in a new city was a little too much for a first date so we settled on your favorite dessert in the world... \n\n Who knew a cute Mother's Day Ice Cream Hinge date would turn into a such an amazing journey with my favorite person :) \n\n Stella Jeans Ube Ice Cream remains undefeated..."
   },
   {
     id: 2,
@@ -37,9 +37,9 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 200,
     markerIcon: '/markers/carabiner.svg',
     clues: [
-      "First time you flexed on me",
-      "Thank you for inviting me into this safe space of yours",
-      "Our second date when I realized seeing someone climb could be a turn on"
+      "First time you flexed your back muscles for me",
+      "Thanks for keeping me alive in this belaytionship",
+      "When I realized seeing someone climb could be such a turn on"
     ],
     photos: [
       '/images/locations/2/IMG_3436.jpeg',
@@ -144,13 +144,14 @@ export const locationData: Location[] = [
       "Our first breath underwater",
     ],
     photos: [
+      '/images/locations/7/IMG_4335.jpg',
       '/images/locations/7/IMG_3250.jpeg',
       '/images/locations/7/IMG_3342.JPG',
       '/images/locations/7/IMG_3346.JPG',
       '/images/locations/7/IMG_3347.JPG',
       '/images/locations/7/IMG_3348.JPG',
     ],
-    description: "Our first time breathing underwater! \n\nLiterally not a single person in the world I would have rather been with me to do this. This was the beginning of all of our underwater adventures to come... \n\n "
+    description: "Our first time breathing underwater! \n\nThank you for introducing me to your alter egos, Doc Oc and Egg, and when I locked you down as my Buddy. \n\nLiterally not a single person in the world I would have rather been with me to do this. This was the beginning of all of our underwater adventures to come..."
   },
   {
     id: 8,
@@ -173,7 +174,7 @@ export const locationData: Location[] = [
       '/images/locations/8/IMG_3312.JPG',
       '/images/locations/8/IMG_3938.jpeg',
     ],
-    description: "So many firsts here! Our first time kayaking and snorkeling, kicking off the ocean craze that was to come. \n\n Our first Open Water dives together! My first time becoming an ocean murderer - poor baby Sand Dollar :( \n\n Being in the water with you has become one of my favorite places to be in the world, and I'm so lucky and grateful that you let me share this energy with you."
+    description: "So many firsts here! Our first time kayaking and snorkeling, kicking off the ocean craze that followed. \n\nOur first Open Water dives together! My first time becoming an ocean murderer - poor baby Sand Dollar 😔 \n\nBeing in the water with you has become one of my favorite places to be in the world, and this location really holds a special place for us."
   },
   {
     id: 9,
@@ -183,9 +184,9 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 800,
     markerIcon: '/markers/boat.svg',
     clues: [
-      "Go Dodgers...",
-      "Fish love... frozen peas...?",
-      "First time diving in a kelp aquarium"
+      "Lobster's unfortunately could not Dodge this Trap",
+      "Pretty sure we still have a chess match to finish...",
+      "Kelp Bass love... frozen peas...?",
     ],
     photos: [
       '/images/locations/9/IMG_3511.jpeg',
@@ -200,7 +201,7 @@ export const locationData: Location[] = [
       '/images/locations/9/IMG_3893.jpg',
       '/images/locations/9/IMG_9998.JPG',
     ],
-    description: "My favorite weekend with you honestly."
+    description: "My favorite weekend with you honestly. \n\nI loved everythings about this trip. Our chess matches on the ferry, seeing Dolphins for the first time, exploring Avalon's tiny paradise, and most importantly, pretending to be a fish with you. \n\nI wish would could have stayed longer and I'm so excited for us to go back."
   },
   {
     id: 10,
@@ -212,7 +213,7 @@ export const locationData: Location[] = [
     clues: [
       "When you first showed me your favorite yoga pose",
       "When we froze our asses off sleeping in my trunk so we could cuddle instead of using our own sleeping bags",
-      "Our first time outdoor climbing together"
+      "First time hanging off outdoor rocks with you"
     ],
     photos: [
       '/images/locations/10/IMG_1497.JPG',
@@ -230,7 +231,7 @@ export const locationData: Location[] = [
   },
   {
     id: 11,
-    name: 'Hotel Del Coronado',
+    name: 'Ice Skating at Hotel Del',
     lat: 32.680360,
     long: -117.178963,
     acceptableDistanceMetres: 500,
@@ -246,6 +247,7 @@ export const locationData: Location[] = [
       '/images/locations/11/IMG_3869.jpeg',
       '/images/locations/11/IMG_3878.jpeg',
     ],
+    description: "This was the perfect festive date with you. \n\nThe ice skating rink with the sunset backdrop, our alcoholic apple cider (even if you hated it), the fact we didn't fall on our asses I was so impressed :) \n\nSo happy we got to add this to our list of side quests."
   },
   {
     id: 12,
@@ -255,8 +257,9 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 500,
     markerIcon: '/markers/heart.svg',
     clues: [
-      "First place I ever took a photo of you underwater",
-      "Where I asked you an important question that was probably a lot later than it should have been",
+      "You gotta be pretty gnarly to swim here...",
+      "Underwater dispos, short ribs and schnitzels, celebrating our 5 month-iversary",
+      "Where I asked you a very important question 🔒",
     ],
     photos: [
       '/images/locations/12/IMG_3359.jpeg',
@@ -267,6 +270,7 @@ export const locationData: Location[] = [
       '/images/locations/12/IMG_3909.JPG',
       '/images/locations/12/IMG_3915.JPG',
       '/images/locations/12/IMG_8999.jpeg',
-    ]
+    ],
+    description: "My pookie for real :) \n\nI know I took a little too long to ask you to me mine, but I'm so glad we got to share such a special day and moment here. \n\nEvery time we've been together in Laguna has felt special, whether it's being in the water with you, throwing frisbees on the beach, or laying out in the sun. "
   }
 ]

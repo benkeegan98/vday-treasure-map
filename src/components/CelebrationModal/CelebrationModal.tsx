@@ -4,7 +4,9 @@ import { fireHeartsConfetti, fireHeartsAtPosition } from '../../utils/confetti'
 import { TreasureChest } from './TreasureChest'
 import './CelebrationModal.css'
 
-type Phase = 'intro' | 'chest-closed' | 'chest-opening' | 'paper-emerging' | 'revealed'
+type Phase = 'intro' | 'chest-closed' | 'chest-opening' | 'paper-emerging' | 'revealed' | 'loading'
+
+const TREASURE_URL = 'https://www.hotels.com/trips/egti-8CL-PO5-JECZ/details/Zjg0MzZhYzItMzdhZi01NzdlLWJlMDAtZTczZjk5MWU4YWQ0OzViMzU4NzBmLWU2ZWYtNDEyMy04YzI3LWJmNDcwODc5MGQ1NV8w?tripsSandbox=1248693386,1034346041,2'
 
 interface CelebrationModalProps {
   onClose: () => void
@@ -34,7 +36,14 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
       const timer = setTimeout(() => setPhase('revealed'), 1200)
       return () => clearTimeout(timer)
     }
-  }, [phase])
+    if (phase === 'loading') {
+      const timer = setTimeout(() => {
+        window.open(TREASURE_URL, '_blank')
+        onClose()
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [phase, onClose])
 
   const handleChestClick = () => {
     if (phase === 'chest-closed') {
@@ -68,7 +77,7 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
             You've completed the treasure map!
           </p>
 
-          {phase !== 'intro' && (
+          {phase !== 'intro' && phase !== 'loading' && (
             <div className="chest-area">
               <TreasureChest
                 isOpen={phase !== 'chest-closed'}
@@ -78,7 +87,7 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
               />
 
               {phase === 'chest-closed' && (
-                <p className="chest-hint">Tap the chest to claim your treasure...</p>
+                <p className="chest-hint">Tap the chest to read the important message inside...</p>
               )}
             </div>
           )}
@@ -93,7 +102,7 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
             <div className={`celebration-buttons ${noButtonGone ? 'no-gone' : ''}`}>
               <button
                 className="celebration-yes-btn"
-                onClick={() => { window.open('/valentine.pdf', '_blank'); onClose() }}
+                onClick={() => { fireHeartsConfetti(); setPhase('loading') }}
               >
                 Yes!
               </button>
@@ -104,6 +113,15 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
               >
                 No
               </button>
+            </div>
+          )}
+
+          {phase === 'loading' && (
+            <div className="treasure-loading">
+              <p className="loading-text">Treasure Loading...</p>
+              <div className="loading-bar-container">
+                <div className="loading-bar-fill" />
+              </div>
             </div>
           )}
         </div>
