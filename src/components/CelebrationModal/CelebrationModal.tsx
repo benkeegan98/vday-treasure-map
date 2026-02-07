@@ -12,8 +12,7 @@ interface CelebrationModalProps {
 
 export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
   const [phase, setPhase] = useState<Phase>('intro')
-  const [noPosition, setNoPosition] = useState({ x: 0, y: 0 })
-  const [noAttempts, setNoAttempts] = useState(0)
+  const [noButtonGone, setNoButtonGone] = useState(false)
 
   // Fire confetti on mount
   useEffect(() => {
@@ -44,10 +43,7 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
   }
 
   const handleNoHover = () => {
-    const x = (Math.random() - 0.5) * 200
-    const y = (Math.random() - 0.5) * 80
-    setNoPosition({ x, y })
-    setNoAttempts(prev => prev + 1)
+    setNoButtonGone(true)
   }
 
   return (
@@ -94,26 +90,20 @@ export const CelebrationModal = ({ onClose }: CelebrationModalProps) => {
           )}
 
           {phase === 'revealed' && (
-            <div className="celebration-buttons">
+            <div className={`celebration-buttons ${noButtonGone ? 'no-gone' : ''}`}>
               <button
                 className="celebration-yes-btn"
                 onClick={() => { window.open('/valentine.pdf', '_blank'); onClose() }}
               >
                 Yes!
               </button>
-              <div className="no-btn-container">
-                <button
-                  className="celebration-no-btn"
-                  style={{
-                    transform: `translate(${noPosition.x}px, ${noPosition.y}px)`,
-                    fontSize: noAttempts > 5 ? '24px' : '14px',
-                  }}
-                  onMouseEnter={handleNoHover}
-                  onTouchStart={(e) => { e.preventDefault(); handleNoHover() }}
-                >
-                  {noAttempts > 5 ? '😑' : 'No'}
-                </button>
-              </div>
+              <button
+                className={`celebration-no-btn ${noButtonGone ? 'flying-away' : ''}`}
+                onMouseEnter={handleNoHover}
+                onTouchStart={(e) => { e.preventDefault(); handleNoHover() }}
+              >
+                No
+              </button>
             </div>
           )}
         </div>

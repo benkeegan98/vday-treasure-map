@@ -13,6 +13,7 @@
 
 .instructions-container {
   position: relative;
+  background: url('/images/background/map-background.png') center center / cover no-repeat;
   background-color: #F4E4BC;
   border: 1px solid rgba(92, 64, 51, 0.2);
   border-radius: 12px;
@@ -28,6 +29,16 @@
     inset 0 0 60px rgba(139, 115, 85, 0.1);
 }
 
+/* Fade overlay on top of background image */
+.instructions-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(244, 228, 188, 0.3);
+  border-radius: 12px;
+  z-index: 0;
+}
+
 /* Decorative corners */
 .instructions-corner {
   position: absolute;
@@ -36,6 +47,7 @@
   border-color: rgba(92, 64, 51, 0.3);
   border-style: solid;
   pointer-events: none;
+  z-index: 1;
 }
 
 .instructions-corner.corner-tl {
@@ -68,6 +80,8 @@
 
 /* Header */
 .instructions-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,6 +107,8 @@
 
 /* Content */
 .instructions-content {
+  position: relative;
+  z-index: 1;
   padding: 0 32px 32px;
   overflow-y: auto;
   text-align: center;
@@ -195,7 +211,6 @@
   font-style: italic;
   margin: 0;
   padding: 12px;
-  background-color: #E8D4A8;
   border-radius: 6px;
 }
 
@@ -231,7 +246,8 @@
 
 .footer-flourish {
   color: #A52A2A;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 16px;
   letter-spacing: 2px;
   font-style: italic;
 }

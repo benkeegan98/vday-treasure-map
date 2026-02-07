@@ -25,8 +25,8 @@
   top: 24px;
   left: 24px;
   bottom: 24px;
-  width: 380px;
-  background-color: #F4E4BC;
+  width: 450px;
+  background: url('/images/background/map-background.png') center center / cover no-repeat;
   border: 1px solid rgba(92, 64, 51, 0.2);
   border-radius: 12px;
   z-index: 100;
@@ -37,6 +37,16 @@
     0 4px 12px rgba(0, 0, 0, 0.15),
     inset 0 0 60px rgba(139, 115, 85, 0.1);
   animation: slideInLeft 0.4s ease;
+}
+
+/* Fade overlay on top of background image */
+.location-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(244, 228, 188, 0.3);
+  border-radius: 12px;
+  z-index: 0;
 }
 
 @keyframes slideInLeft {
@@ -58,6 +68,7 @@
   border-color: rgba(92, 64, 51, 0.3);
   border-style: solid;
   pointer-events: none;
+  z-index: 1;
 }
 
 .modal-corner.corner-tl {
@@ -89,6 +100,8 @@
 }
 
 .modal-internal-container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   padding: 12px;
@@ -143,6 +156,10 @@
   overflow-y: auto;
   text-align: center;
   flex: 1;
+}
+
+.modal-content.new-unlock {
+  padding-top: 24px;
 }
 
 /* Unlocked icon */
@@ -240,13 +257,41 @@
   width: 160px;
   left: calc(50% - 80px);
   top: calc(50% - 72px);
-  background: #fff;
+  /* Slightly aged off-white paper */
+  background: linear-gradient(
+    135deg,
+    #FEFEFE 0%,
+    #FAF8F5 40%,
+    #F7F5F0 60%,
+    #FCFBF9 100%
+  );
   padding: 8px 8px 28px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(139, 115, 85, 0.15);
   border-radius: 2px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
   transform: rotate(var(--r, 0deg)) translate(var(--x, 0px), var(--y, 0px));
+  /* Subtle worn edges */
+  border: 1px solid rgba(139, 115, 85, 0.2);
+}
+
+/* Worn corner effect */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom right,
+    transparent 85%,
+    rgba(139, 115, 85, 0.1) 100%
+  );
+  pointer-events: none;
+  border-radius: 2px;
 }
 
 .polaroid img {
@@ -254,11 +299,17 @@
   aspect-ratio: 4/3;
   object-fit: cover;
   display: block;
+  /* Sepia vintage effect */
+  filter: sepia(25%) saturate(85%) contrast(95%) brightness(98%);
+  /* Faded edges on the photo */
+  box-shadow: inset 0 0 8px rgba(92, 64, 51, 0.2);
 }
 
 .polaroid:hover {
   transform: rotate(0deg) scale(1.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 0 20px rgba(139, 115, 85, 0.15);
   z-index: 20 !important;
 }
 

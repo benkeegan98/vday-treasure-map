@@ -1,15 +1,99 @@
 .splash-screen {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #D4C4A0 0%, #E8D4A8 50%, #C9B896 100%);
+  background: url('/images/background/map-background.png') center center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Polaroid Border Collage ── */
+.polaroid-border {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.border-polaroid {
+  position: absolute;
+  width: 140px;
+  /* Slightly aged off-white paper */
+  background: linear-gradient(
+    135deg,
+    #FEFEFE 0%,
+    #FAF8F5 40%,
+    #F7F5F0 60%,
+    #FCFBF9 100%
+  );
+  padding: 8px 8px 28px;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(139, 115, 85, 0.15);
+  transform: rotate(var(--rotate, 0deg));
+  /* Subtle worn edges */
+  border: 1px solid rgba(139, 115, 85, 0.2);
+}
+
+/* Worn corner effect */
+.border-polaroid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom right,
+    transparent 85%,
+    rgba(139, 115, 85, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+.border-polaroid img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  /* Sepia vintage effect */
+  filter: sepia(25%) saturate(85%) contrast(95%) brightness(98%);
+  /* Faded edges on the photo */
+  box-shadow: inset 0 0 8px rgba(92, 64, 51, 0.2);
+}
+
+/* Position polaroids on each edge */
+.border-polaroid-top {
+  top: calc(-30px + var(--inward, 0px));
+  left: var(--along, 50%);
+  transform: translateX(-50%) rotate(var(--rotate, 0deg));
+}
+
+.border-polaroid-bottom {
+  bottom: calc(-30px + var(--inward, 0px));
+  left: var(--along, 50%);
+  transform: translateX(-50%) rotate(var(--rotate, 0deg));
+}
+
+.border-polaroid-left {
+  left: calc(-30px + var(--inward, 0px));
+  top: var(--along, 50%);
+  transform: translateY(-50%) rotate(var(--rotate, 0deg));
+}
+
+.border-polaroid-right {
+  right: calc(-30px + var(--inward, 0px));
+  top: var(--along, 50%);
+  transform: translateY(-50%) rotate(var(--rotate, 0deg));
 }
 
 .splash-container {
   position: relative;
+  opacity: 0.8;
+  z-index: 1;
   background-color: #F4E4BC;
   border: 4px solid #5C4033;
   border-radius: 12px;

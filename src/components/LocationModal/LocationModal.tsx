@@ -113,7 +113,7 @@ export const LocationModal = ({ onCelebrate }: LocationModalProps) => {
 
         <div className="modal-internal-container">
           {/* Content */}
-          <div className="modal-content">
+          <div className={`modal-content ${isNewUnlock ? 'new-unlock' : ''}`}>
             {isNewUnlock && (
               <>
                 <div className="modal-unlocked-icon">
@@ -175,9 +175,6 @@ export const LocationModal = ({ onCelebrate }: LocationModalProps) => {
                     </div>
                   ))}
                 </div>
-                {activeModalLocation.photos.length > 1 && (
-                  <p className="polaroid-hint">Hover to peek, click to expand</p>
-                )}
               </div>
             )}
 
