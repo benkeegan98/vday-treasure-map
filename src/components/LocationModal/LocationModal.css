@@ -226,6 +226,7 @@
   font-size: 15px;
   line-height: 1.6;
   font-style: italic;
+  white-space: pre-line;
 }
 
 /* ── Polaroid Gallery ── */

@@ -20,13 +20,14 @@ export const locationData: Location[] = [
     markerIcon: '/markers/ice-cream.svg',
     clues: [
       "Happy Mother's Day!",
-      "Chicken on a roof",
-      "Our first date when you showed me your taste for the finest desserts"
+      "Is that a chicken on a roof??",
+      "Our first date, when you showed me your taste for the finest desserts"
     ],
     photos: [
       '/images/locations/1/IMG_3476.PNG',
       '/images/locations/1/IMG_4316.JPG',
-    ]
+    ],
+    description: "It all started with the Hinge algorithm, who are we to argue? We decided waking up in a new city was a little too much for a first date so we settled on your favorite dessert in the world... \n\n Who knew a cute Mother's Day Ice Cream date would turn into my favorite person :) \n\n Stella Jeans Ube Ice Cream remains undefeated. "
   },
   {
     id: 2,
@@ -45,7 +46,8 @@ export const locationData: Location[] = [
       '/images/locations/2/IMG_3440.jpeg',
       '/images/locations/2/IMG_3726.jpeg',
       '/images/locations/2/IMG_9999.jpeg',
-    ]
+    ],
+    description: "Forever grateful that you invited me into this safe space of yours. \n\nI genuinely LOVE watching you climb. Your passion for the things you do is so infectious to me, and climbing was the first time I got to watch you do your thing!! \n\nWhat started as a second date turned into one of my favorite activities to do with you. Always down to come to Mesa Rim and watch you flex on me :)"
   },
   {
     id: 3,
@@ -62,7 +64,8 @@ export const locationData: Location[] = [
     photos: [
       '/images/locations/3/IMG_1.png',
       '/images/locations/3/IMG_2.png',
-    ]
+    ],
+    description: "This was such a cute one! One of my favorite dates of ours. \n\nIt took me a while to convince you that parking here was fine and that you wouldn't get towed, but our little sunset wine picnic ended up being perfect. \n\n We still need to go back here!!"
   },
   {
     id: 4,
@@ -82,7 +85,8 @@ export const locationData: Location[] = [
       '/images/locations/4/IMG_3903.png',
       '/images/locations/4/IMG_3908.png',
       '/images/locations/4/IMG_7134.png',
-    ]
+    ],
+    description: "This was a special one for me. I had so much fun being with you and all your friends, seeing how much your friends loved you. \n\n Maybe it was the drugs lmao, but I remember feeling such a shift in my feelings and you suddenly became someone I saw myself being with for a long time to come. \n\n10/10 experience having you layer hand sanitizer on my neck and blowing on me 🤣"
   },
   {
     id: 5,
@@ -105,7 +109,8 @@ export const locationData: Location[] = [
       '/images/locations/5/IMG_1137.jpeg',
       '/images/locations/5/IMG_1139.jpeg',
       '/images/locations/5/IMG_4425.png',
-    ]
+    ],
+    description: "Our first hike together! You had been talking about this one for a while and I think slot canyons are cool so I was excited we were finally doing it. \n\nIt did end up being the shortest slot canyon in the world, but I remember this day very fondly :) \n\nEven if I didn't remember the message in the bottle word for word like you did, I loved this little side quest, bat hanging out of the tree. \n\nThis was also the day we went to Rip Curl to try on wetsuits and explored the USD campus!"
   },
   {
     id: 6,
@@ -124,7 +129,8 @@ export const locationData: Location[] = [
       '/images/locations/6/IMG_1185.jpeg',
       '/images/locations/6/IMG_1187.jpeg',
       '/images/locations/6/IMG_1188.jpeg',
-    ]
+    ],
+    description: "Our first mini trip together! Not quite waking up in a new city, but it was very cute to get away with you for a night. \n\n The sky was so clear, this was my first time seeing the Milky Way! Even if we were interrupted by some trucks looking like they were doing a desert murder burial, this was special :) \n\n 10/10 would stay in a creepy western saloon motel with weird pillows again."
   },
   {
     id: 7,
@@ -143,7 +149,8 @@ export const locationData: Location[] = [
       '/images/locations/7/IMG_3346.JPG',
       '/images/locations/7/IMG_3347.JPG',
       '/images/locations/7/IMG_3348.JPG',
-    ]
+    ],
+    description: "Our first time breathing underwater! \n\nLiterally not a single person in the world I would have rather been with me to do this. This was the beginning of all of our underwater adventures to come... \n\n "
   },
   {
     id: 8,
@@ -165,7 +172,8 @@ export const locationData: Location[] = [
       '/images/locations/8/IMG_3308.JPG',
       '/images/locations/8/IMG_3312.JPG',
       '/images/locations/8/IMG_3938.jpeg',
-    ]
+    ],
+    description: "So many firsts here! Our first time kayaking and snorkeling, kicking off the ocean craze that was to come. \n\n Our first Open Water dives together! My first time becoming an ocean murderer - poor baby Sand Dollar :( \n\n Being in the water with you has become one of my favorite places to be in the world, and I'm so lucky and grateful that you let me share this energy with you."
   },
   {
     id: 9,
@@ -175,7 +183,9 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 800,
     markerIcon: '/markers/boat.svg',
     clues: [
-      "Our first scuba trip!"
+      "Go Dodgers...",
+      "Fish love... frozen peas...?",
+      "First time diving in a kelp aquarium"
     ],
     photos: [
       '/images/locations/9/IMG_3511.jpeg',
@@ -189,7 +199,8 @@ export const locationData: Location[] = [
       '/images/locations/9/IMG_3603.jpeg',
       '/images/locations/9/IMG_3893.jpg',
       '/images/locations/9/IMG_9998.JPG',
-    ]
+    ],
+    description: "My favorite weekend with you honestly."
   },
   {
     id: 10,
@@ -214,7 +225,8 @@ export const locationData: Location[] = [
       '/images/locations/10/IMG_3676.JPG',
       '/images/locations/10/IMG_3678.JPG',
       '/images/locations/10/IMG_5555.jpg',
-    ]
+    ],
+    description: "My first time outdoor climbing and so glad I got to do it with you! \n\nI love how many amazing memories we've made together already, and this definitely felt like a highlight. \n\nThank you for letting me tag along and for being the most cozy car camping partner :)"
   },
   {
     id: 11,
@@ -224,6 +236,8 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 500,
     markerIcon: '/markers/ice-skate.svg',
     clues: [
+      "Definitely a balancing act...",
+      "Found out we have different tastes in alcoholic hot drinks",
       "First time seeing you on ice"
     ],
     photos: [
@@ -231,7 +245,7 @@ export const locationData: Location[] = [
       '/images/locations/11/IMG_3862.jpeg',
       '/images/locations/11/IMG_3869.jpeg',
       '/images/locations/11/IMG_3878.jpeg',
-    ]
+    ],
   },
   {
     id: 12,

@@ -33,11 +33,6 @@ export const SplashScreen = ({ onEnter }: SplashScreenProps) => {
           <span className="divider-line" />
         </div>
 
-        {/* Photo area placeholder */}
-        <div className="splash-photo-area">
-          <p className="photo-placeholder-text">[ Photo area ]</p>
-        </div>
-
         {/* Message */}
         <p className="splash-message">
           A journey through our favorite memories...
