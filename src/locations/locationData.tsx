@@ -162,7 +162,7 @@ export const locationData: Location[] = [
     acceptableDistanceMetres: 1000,
     markerIcon: '/markers/garibaldi.svg',
     clues: [
-      "Solified my love for Spindrift, in more ways than one",
+      "Solidified my love for Spindrift, in more ways than one",
       "Where you lost my most precious possession (which you remembered and bought again for my birthday)",
       "So many firsts together here - snorkeling, kayaking, seeing sharks and turtles and Gary Baldys :)"
     ],
@@ -272,6 +272,6 @@ export const locationData: Location[] = [
       '/images/locations/12/IMG_3915.JPG',
       '/images/locations/12/IMG_8999.jpeg',
     ],
-    description: "My pookie for real :) \n\nI know I took a little too long to ask you to me mine, but I'm so glad we got to share such a special day and moment here. \n\nEvery time we've been together in Laguna has felt special, whether it's being in the water with you, throwing frisbees on the beach, exploring tide pools, laying out in the sun. \n\nVery excited for the next time we get to go here together 😉"
+    description: "My pookie for real :) \n\nI know I took a little too long to ask you to be mine, but I'm so glad we got to share such a special day and moment here. \n\nEvery time we've been together in Laguna has felt special, whether it's being in the water with you, throwing frisbees on the beach, exploring tide pools, laying out in the sun. \n\nVery excited for the next time we get to go here together 😉"
   }
 ]
